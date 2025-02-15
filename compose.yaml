@@ -1,6 +1,3 @@
-networks:
-  akane:
-
 services:
   akane-next:
     build:
