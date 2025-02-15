@@ -1,0 +1,48 @@
+volumes:
+  bundle_cache:
+  node_modules:
+
+networks:
+  akane:
+
+services:
+  akane:
+    build:
+      context: akane
+      dockerfile: ../docker/akene/Dockerfile
+    volumes:
+      - ./akane:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=development
+    depends_on:
+      - db
+    command: ["rails", "server", "-b", "0.0.0.0", "-e", "development"]
+    networks:
+      - akane
+
+  akane-next:
+    build:
+      context: packages/akane-next
+      dockerfile: ../../docker/akane-next/Dockerfile
+    volumes:
+      - node_modules:/app/node_modules
+      - ./packages/akane-next:/app
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3001:3000"
+
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: akane
+      POSTGRES_DB: akane
+    volumes:
+      - ./tmp/postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - akane
+
