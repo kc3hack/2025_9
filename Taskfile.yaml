@@ -2,19 +2,7 @@ version: "3"
 
 tasks:
   up:
-    desc: フロントエンドとバックエンドのサーバーを起動します
-    deps:
-      - up:frontend
-      - up:backend
-
-  up:frontend:
-    desc: フロントエンドサーバーを起動します
+    desc: 開発サーバーを起動します
     dir: packages/akane-next
     cmds:
       - npm run dev
-
-  up:backend:
-    desc: バックエンドサーバーを起動します
-    dir: akane
-    cmds:
-      - bin/rails s
