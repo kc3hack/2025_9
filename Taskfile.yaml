@@ -3,6 +3,15 @@ version: "3"
 tasks:
   up:
     desc: 開発サーバーを起動します
-    dir: packages/akane-next
     cmds:
-      - npm run dev
+      - docker compose up -w
+
+  down:
+    desc: 開発サーバーを停止します
+    cmds:
+      - docker compose down --remove-orphans
+
+  build:
+    desc: 開発サーバーのイメージをビルドします
+    cmds:
+      - docker compose build

@@ -1,18 +1,17 @@
-volumes:
-  bundle_cache:
-  node_modules:
-
-networks:
-  akane:
-
 services:
   akane-next:
     build:
       context: packages/akane-next
       dockerfile: ../../docker/akane-next/Dockerfile
-    volumes:
-      - node_modules:/app/node_modules
-      - ./packages/akane-next:/app
     command: ["npm", "run", "dev"]
     ports:
       - "3000:3000"
+    develop:
+      watch:
+        - action: sync
+          path: ./packages/akane-next
+          target: /app
+          ignore:
+            - node_modules
+        - action: rebuild
+          path: package.json
