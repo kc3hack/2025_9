@@ -1,0 +1,24 @@
+{
+  "name": "akane",
+  "version": "1.0.0",
+  "description": "<!-- プロダクト名に変更してください -->",
+  "homepage": "https://github.com/kc3hack/2025_9#readme",
+  "bugs": {
+    "url": "https://github.com/kc3hack/2025_9/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kc3hack/2025_9.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "packages/akane-next"
+  ]
+}
