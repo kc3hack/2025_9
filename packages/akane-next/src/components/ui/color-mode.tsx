@@ -7,6 +7,9 @@ import type { ThemeProviderProps } from "next-themes"
 import * as React from "react"
 import { LuMoon, LuSun } from "react-icons/lu"
 
+// TODO(eslint-rule): 型同士の等式にすることでLintエラーは解決できるが、
+// 今後 ColorModeProviderProps のプロパティが追加されそうなので一時的に無効化している
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ColorModeProviderProps extends ThemeProviderProps {}
 
 export function ColorModeProvider(props: ColorModeProviderProps) {
@@ -45,6 +48,9 @@ export function ColorModeIcon() {
   return colorMode === "dark" ? <LuMoon /> : <LuSun />
 }
 
+// TODO(eslint-rule): 型同士の等式にすることでLintエラーは解決できるが、
+// 今後 ColorModeButtonProps のプロパティが追加されそうなので一時的に無効化している
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ColorModeButtonProps extends Omit<IconButtonProps, "aria-label"> {}
 
 export const ColorModeButton = React.forwardRef<
