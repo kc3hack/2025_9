@@ -36,3 +36,5 @@ jobs:
         run: npm run typecheck -w packages/akane-next
       - name: Lint
         run: npm run lint -w packages/akane-next
+      - name: Test
+        run: npm run test -w packages/akane-next
