@@ -62,7 +62,7 @@ jobs:
       - uses: docker/metadata-action@v4
         id: meta
         with:
-          images: ghcr.io/${{ github.repository_owner }}/{{ github.repository }}
+          images: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}
           tags: |
             type=raw,value={{branch}}-{{date 'YYYYMMDD-HHmmss' tz='Asia/Tokyo'}}
           # Open Container Initiative (OCI) の Image Spec に基づくラベル
