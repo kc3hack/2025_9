@@ -1,5 +1,7 @@
-import { getSSRApolloClient } from "@/graphql/client";
-import { gql } from "../../apollo/__generated__/client";
+"use client";
+
+import { useQuery } from "@apollo/client";
+import { gql } from "../../../apollo/__generated__/client";
 
 const query = gql(`
   query GetUser($id: ID!){
@@ -8,18 +10,15 @@ const query = gql(`
       name
     }
   }
+`);
 
-`)
-
-
-export default async function Home() {
-  const { data, loading } = await getSSRApolloClient().query({
-    query,
+export default function SamplePage() {
+  const { data, loading } = useQuery(query, {
     variables: { id: '1' }
-  })
+  });
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   return (
