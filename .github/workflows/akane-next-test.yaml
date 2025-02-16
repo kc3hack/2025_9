@@ -59,14 +59,21 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/metadata-action@v4
+        id: meta
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/{{ github.repository }}
+          tags: |
+            type=semver,pattern={{date 'YYYYMMDD-HHmmss' tz='Asia/Tokyo'}}
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           context: ./packages/akane-next
           file: ./docker/akane-next/Dockerfile
           platforms: linux/amd64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           push: ${{ github.head_ref == 'main' }}
-          tags: ghcr.io/${{ github.repository_owner }}/2025_9/akene-next:latest
           provenance: false
         env:
           NODE_ENV: production
