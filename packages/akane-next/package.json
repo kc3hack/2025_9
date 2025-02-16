@@ -22,8 +22,11 @@
     "@as-integrations/next": "^3.2.0",
     "@chakra-ui/react": "^3.8.0",
     "@emotion/react": "^11.14.0",
+    "@mapbox/mapbox-gl-language": "^1.0.1",
+    "@types/mapbox-gl": "^3.4.1",
     "@prisma/client": "^6.3.1",
     "graphql": "^16.10.0",
+    "mapbox-gl": "^3.10.0",
     "next": "15.1.7",
     "next-themes": "^0.4.4",
     "react": "^19.0.0",
@@ -58,5 +61,9 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "volta": {
+    "node": "22.14.0",
+    "npm": "11.1.0"
   }
 }
