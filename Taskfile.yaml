@@ -12,6 +12,14 @@ tasks:
     cmds:
       - npm run dev
 
+  up:frontend:storybook:
+    desc: Storybook を起動します
+    aliases:
+      - storybook
+    dir: packages/akane-next
+    cmds:
+      - npm run storybook
+
   down:
     desc: 開発サーバーを停止します
     cmds:
