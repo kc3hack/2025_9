@@ -64,7 +64,8 @@ jobs:
           context: ./packages/akane-next
           file: ./docker/akane-next/Dockerfile
           platforms: linux/amd64
-          push: ${{ github.head_ref == 'main' }}
+          # push: ${{ github.head_ref == 'main' }}
+          push: true
           tags: ghcr.io/${{ github.repository_owner }}/akene-next:latest
           provenance: false
         env:
