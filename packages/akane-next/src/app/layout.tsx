@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Sans_JP } from 'next/font/google';
 import "./globals.css";
 import { Provider } from "@/components/ui/provider";
+import { WithApolloProvider } from "@/graphql/provider";
 
 const ibmPlexSansJp = IBM_Plex_Sans_JP({
   weight: ['200', '400', '700'],
@@ -22,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={`${ibmPlexSansJp.className}`}>
-        <Provider>
-          {children}
-        </Provider>
+        <WithApolloProvider>
+          <Provider>
+            {children}
+          </Provider>
+        </WithApolloProvider>
       </body>
     </html>
   );
