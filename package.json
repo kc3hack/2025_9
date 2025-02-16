@@ -20,5 +20,8 @@
   },
   "workspaces": [
     "packages/akane-next"
-  ]
+  ],
+  "volta": {
+    "node": "22.14.0"
+  }
 }
