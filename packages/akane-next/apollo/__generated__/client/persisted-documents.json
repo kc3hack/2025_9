@@ -1,0 +1,3 @@
+{
+  "b1e3e272fbdf6e4488d85c43027fef28d49cf731": "query GetUser($id: ID!) { user(id: $id) { id name } }"
+}
