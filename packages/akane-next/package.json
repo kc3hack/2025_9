@@ -11,9 +11,7 @@
     "typecheck": "tsc",
     "test": "vitest run",
     "codegen:graphql": "graphql-codegen",
-    "codegen:graphql:watch": "graphql-codegen --watch",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "codegen:graphql:watch": "graphql-codegen --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.13.1",
@@ -30,31 +28,16 @@
     "react-icons": "^5.4.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^3.2.4",
     "@eslint/eslintrc": "^3",
     "@graphql-codegen/cli": "^5.0.5",
     "@graphql-codegen/client-preset": "^4.6.2",
     "@parcel/watcher": "^2.5.1",
-    "@storybook/addon-essentials": "^8.5.6",
-    "@storybook/addon-interactions": "^8.5.6",
-    "@storybook/addon-onboarding": "^8.5.6",
-    "@storybook/blocks": "^8.5.6",
-    "@storybook/nextjs": "^8.5.6",
-    "@storybook/react": "^8.5.6",
-    "@storybook/test": "^8.5.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
-    "eslint-plugin-storybook": "^0.11.3",
-    "storybook": "^8.5.6",
     "typescript": "^5",
     "vitest": "^3.0.5"
-  },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
   }
 }
