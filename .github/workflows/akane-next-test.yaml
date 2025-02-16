@@ -72,7 +72,7 @@ jobs:
           # ref:
           # - https://github.com/opencontainers/image-spec/blob/fbb4662eb53b80bd38f7597406cf1211317768f0/annotations.md?plain=1#L18-L26
           labels: |
-            org.opencontainers.image.created={{date 'YYYY-MM-DDTHH:mm:ss.SSS[Z]'}}
+            org.opencontainers.image.created={{commit_date 'YYYY-MM-DDTHH:mm:ss.SSS[Z]' tz='Asia/Tokyo'}}
             org.opencontainers.image.authors="rokuosan, taiseiue, nenrinyear, Retasusan, ikotome"
             org.opencontainers.image.url="https://github.com/kc3hack/2025_9"
             org.opencontainers.image.documentation="https://github.com/kc3hack/2025_9"
