@@ -1,6 +1,8 @@
 import { getSSRApolloClient } from "@/graphql/client";
 import { gql } from "../../apollo/__generated__/client";
 
+export const dynamic = 'force-dynamic'
+
 const query = gql(`
   query GetUser($id: ID!){
     user(id: $id) {
