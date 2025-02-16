@@ -3,8 +3,14 @@ version: "3"
 tasks:
   up:
     desc: 開発サーバーを起動します
+    deps:
+      - codegen:graphql:watch
+      - up:frontend:npm
+
+  up:frontend:npm:
+    dir: packages/akane-next
     cmds:
-      - docker compose up -w
+      - npm run dev
 
   down:
     desc: 開発サーバーを停止します
@@ -15,6 +21,16 @@ tasks:
     desc: 開発サーバーのイメージをビルドします
     cmds:
       - docker compose build
+
+  codegen:graphql:
+    desc: GraphQLのコードジェネレータを実行します
+    cmds:
+      - npm -w packages/akane-next run codegen:graphql
+
+  codegen:graphql:watch:
+    desc: GraphQLのコードジェネレータを監視モードで実行します
+    cmds:
+      - npm -w packages/akane-next run codegen:graphql:watch
 
   # akane-next に対して npm コマンドを実行するタスク
   # workspace 指定が面倒なのでその shorthand として定義
