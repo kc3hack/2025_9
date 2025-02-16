@@ -38,3 +38,35 @@ jobs:
         run: npm run lint -w packages/akane-next
       - name: Test
         run: npm run test -w packages/akane-next
+      - name: Build
+        run: npm run build -w packages/akane-next
+
+  build-and-push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+      id-token: write
+      actions: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./packages/akane-next
+          file: ../../docker/akane-next/Dockerfile
+          platforms: linux/amd64
+          push: ${{ github.head_ref == 'main' }}
+          tags: ghcr.io/${{ github.repository_owner }}/akene-next:latest
+        env:
+          NODE_ENV: production
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
