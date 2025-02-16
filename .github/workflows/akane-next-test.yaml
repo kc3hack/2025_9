@@ -63,6 +63,8 @@ jobs:
         id: meta
         with:
           images: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}
+          # デフォルトブランチの時だけ latest タグをつけてそれ以外は日時とコミットハッシュをつける
+          # ref: https://github.com/docker/metadata-action?tab=readme-ov-file#customizing
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value={{date 'YYYYMMDD-HHmmss' tz='Asia/Tokyo'}}-{{sha}}
