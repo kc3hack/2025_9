@@ -1,14 +1,9 @@
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { ApolloServer } from '@apollo/server';
-import { readFileSync } from 'fs';
 import { NextRequest } from 'next/server';
 import { UserResolver } from './handler/user.handler';
 import { Resolvers } from '../../apollo/__generated__/server/resolvers-types';
-
-
-// Schema 定義をファイルから読み取る
-const schemaPath = "schema/akane-web-graphql.gql";
-const typeDefs = readFileSync(schemaPath, { encoding: "utf-8" });
+import { typeDefs } from './typedefs';
 
 const server = new ApolloServer<Resolvers>({
   typeDefs,

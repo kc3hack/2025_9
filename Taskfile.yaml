@@ -25,11 +25,13 @@ tasks:
   codegen:graphql:
     desc: GraphQLのコードジェネレータを実行します
     cmds:
+      - sh ./scripts/copy-gql-schema.sh
       - npm -w packages/akane-next run codegen:graphql
 
   codegen:graphql:watch:
     desc: GraphQLのコードジェネレータを監視モードで実行します
     cmds:
+      - sh ./scripts/copy-gql-schema.sh
       - npm -w packages/akane-next run codegen:graphql:watch
 
   # akane-next に対して npm コマンドを実行するタスク
