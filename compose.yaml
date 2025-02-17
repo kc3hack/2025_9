@@ -16,6 +16,9 @@ services:
             - node_modules
         - action: rebuild
           path: package.json
+    environment:
+      DATABASE_URL: "mysql://root@db:3306/akane"
+
   nginx:
     image: nginx:latest
     build:
