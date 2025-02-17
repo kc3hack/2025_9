@@ -16,7 +16,7 @@ export const UserResolver = async (_: any, args: QueryUserArgs) => {
     });
   }
 
-  return { id: `${user?.id}`, name: user?.name as string } as User;
+  return { id: user.id.toString(), name: user.name  } as User;
 };
 
 
