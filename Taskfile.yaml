@@ -9,7 +9,7 @@ tasks:
   up:frontend:
     desc: 開発サーバーを起動します
     cmds:
-      - docker compose up
+      - docker compose up -w
 
   up:frontend:npm:
     dir: packages/akane-next
