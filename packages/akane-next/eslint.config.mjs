@@ -13,7 +13,7 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     files: [
-      "src/graphql/handler/**/*.ts",
+      "src/graphql/resolver/**/*.ts",
       "src/app/api/graphql/**/*.ts"
     ],
     rules: {
