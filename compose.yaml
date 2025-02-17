@@ -6,6 +6,7 @@ services:
     command: ["npm", "run", "dev"]
     ports:
       - "3000:3000"
+      - "5555:5555" # for prisma studio
     develop:
       watch:
         - action: sync
@@ -22,3 +23,15 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "80:80"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: akane
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./tmp/mysql:/var/lib/mysql
