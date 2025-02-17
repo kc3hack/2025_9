@@ -4,8 +4,12 @@ tasks:
   up:
     desc: 開発サーバーを起動します
     deps:
-      - codegen:graphql:watch
-      - up:frontend:npm
+      - up:frontend
+
+  up:frontend:
+    desc: 開発サーバーを起動します
+    cmds:
+      - docker compose up -w --build
 
   up:frontend:npm:
     dir: packages/akane-next
@@ -51,3 +55,11 @@ tasks:
       - nan
     cmds:
       - npm -w packages/akane-next {{ .CLI_ARGS }}
+
+  prisma:
+    desc: Prisma の CLI を実行します
+    dir: packages/akane-next
+    cmds:
+      - npx prisma {{ .CLI_ARGS }}
+    env:
+      DATABASE_URL: "mysql://root@localhost:3306/akane"

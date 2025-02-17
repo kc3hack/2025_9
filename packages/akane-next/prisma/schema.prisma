@@ -1,0 +1,151 @@
+// Prisma Schema の書き方についてはドキュメントを参照
+// ref: https://www.prisma.io/docs/orm/reference/prisma-schema-reference
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model UserAccount {
+  id   BigInt @id @db.BigInt
+  name String @db.VarChar(255)
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
+}
+
+model Story {
+  id              BigInt @id @db.BigInt
+  user_account_id BigInt @db.BigInt
+
+  // ストーリのタイトル
+  title String @db.VarChar(255)
+
+  // ストーリの内容
+  content String @db.Text
+
+  // ストーリーの画像
+  image_url String? @db.VarChar(255)
+
+  // ストーリの種類
+  // - long: 長編
+  // - short: 短編
+  type String @db.VarChar(255)
+
+  // ストーリーの状態
+  // - draft: 下書き
+  // - published: 公開
+  status String @default("draft") @db.VarChar(255)
+
+  // ストーリーの難易度
+  difficulty Int @default(0) @db.TinyInt
+
+  // ストーリーにかかる時間
+  estimated_time String? @db.VarChar(255)
+
+  // ストーリーの場所
+  area String @db.VarChar(255)
+
+  // 座標からの半径距離
+  radius Float @default(0) @db.Float
+
+  // ストーリーの座標
+  latitude  Float @db.Float
+  longitude Float @db.Float
+
+  // ピンに表示するアイコンクラス(FontAwesomeを想定)
+  // null の場合はデフォルトのアイコンを使用する
+  pin_class String? @db.VarChar(255)
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
+}
+
+model Question {
+  id       BigInt @id @db.BigInt
+  story_id BigInt @db.BigInt
+
+  // 問のタイトル
+  title String @db.VarChar(255)
+
+  // 問の内容
+  content String @db.Text
+
+  // 問の画像
+  image_url String? @db.VarChar(255)
+
+  // 問の答え
+  answer String @db.VarChar(255)
+
+  // 問の優先度
+  priority Int @default(0) @db.Int
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
+}
+
+model Hint {
+  id BigInt @id @db.BigInt
+
+  // ヒントのタイトル
+  title String @db.VarChar(255)
+
+  // ヒントの内容
+  content String @db.Text
+
+  // ヒントの画像
+  image_url String? @db.VarChar(255)
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
+}
+
+model QuestionHint {
+  id BigInt @id @db.BigInt
+
+  question_id BigInt @db.BigInt
+  hint_id     BigInt @db.BigInt
+
+  // ヒントの優先度
+  priority Int @default(0) @db.Int
+
+  // ヒントの種類
+  type String @db.VarChar(255)
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
+}
+
+model StoryProgression {
+  id BigInt @id @db.BigInt
+
+  user_account_id BigInt @db.BigInt
+  story_id        BigInt @db.BigInt
+
+  // ストーリーの状態
+  // 各ユーザーに対して進行中のストーリーは1つのみ
+  // - started: 未開始
+  // - in_progress: 進行中
+  // - completed: 完了
+  status String @default("started") @db.VarChar(255)
+
+  // ストーリーに対して現在の問題
+  current_question_id BigInt? @db.BigInt
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
+}
+
+model HintInventory {
+  id BigInt @id @db.BigInt
+
+  user_account_id BigInt @db.BigInt
+  hint_id         BigInt @db.BigInt
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
+}
