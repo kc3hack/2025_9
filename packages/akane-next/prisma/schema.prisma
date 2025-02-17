@@ -14,8 +14,8 @@ model UserAccount {
   id   BigInt @id @db.BigInt
   name String @db.VarChar(255)
 
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  updatedAt DateTime @updatedAt @db.Timestamp(6)
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updatedt   DateTime @updatedAt @db.Timestamp(6)
 }
 
 model Story {
@@ -60,6 +60,9 @@ model Story {
   // ピンに表示するアイコンクラス(FontAwesomeを想定)
   // null の場合はデフォルトのアイコンを使用する
   pin_class String? @db.VarChar(255)
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
 }
 
 model Question {
@@ -80,6 +83,9 @@ model Question {
 
   // 問の優先度
   priority Int @default(0) @db.Int
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
 }
 
 model Hint {
@@ -93,6 +99,9 @@ model Hint {
 
   // ヒントの画像
   image_url String? @db.VarChar(255)
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
 }
 
 model QuestionHint {
@@ -106,6 +115,9 @@ model QuestionHint {
 
   // ヒントの種類
   type String @db.VarChar(255)
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
 }
 
 model StoryProgression {
@@ -123,6 +135,9 @@ model StoryProgression {
 
   // ストーリーに対して現在の問題
   current_question_id BigInt? @db.BigInt
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
 }
 
 model HintInventory {
@@ -130,4 +145,7 @@ model HintInventory {
 
   user_account_id BigInt @db.BigInt
   hint_id         BigInt @db.BigInt
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @updatedAt @db.Timestamp(6)
 }

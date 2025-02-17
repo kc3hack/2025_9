@@ -2,8 +2,8 @@
 CREATE TABLE `UserAccount` (
     `id` BIGINT NOT NULL,
     `name` VARCHAR(255) NOT NULL,
-    `createdAt` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-    `updatedAt` TIMESTAMP(6) NOT NULL,
+    `created_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    `updatedt` TIMESTAMP(6) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -24,6 +24,8 @@ CREATE TABLE `Story` (
     `latitude` FLOAT NOT NULL,
     `longitude` FLOAT NOT NULL,
     `pin_class` VARCHAR(255) NULL,
+    `created_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    `updated_at` TIMESTAMP(6) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -37,6 +39,8 @@ CREATE TABLE `Question` (
     `image_url` VARCHAR(255) NULL,
     `answer` VARCHAR(255) NOT NULL,
     `priority` INTEGER NOT NULL DEFAULT 0,
+    `created_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    `updated_at` TIMESTAMP(6) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -47,6 +51,8 @@ CREATE TABLE `Hint` (
     `title` VARCHAR(255) NOT NULL,
     `content` TEXT NOT NULL,
     `image_url` VARCHAR(255) NULL,
+    `created_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    `updated_at` TIMESTAMP(6) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -58,6 +64,8 @@ CREATE TABLE `QuestionHint` (
     `hint_id` BIGINT NOT NULL,
     `priority` INTEGER NOT NULL DEFAULT 0,
     `type` VARCHAR(255) NOT NULL,
+    `created_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    `updated_at` TIMESTAMP(6) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -69,6 +77,8 @@ CREATE TABLE `StoryProgression` (
     `story_id` BIGINT NOT NULL,
     `status` VARCHAR(255) NOT NULL DEFAULT 'started',
     `current_question_id` BIGINT NULL,
+    `created_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    `updated_at` TIMESTAMP(6) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -78,6 +88,8 @@ CREATE TABLE `HintInventory` (
     `id` BIGINT NOT NULL,
     `user_account_id` BIGINT NOT NULL,
     `hint_id` BIGINT NOT NULL,
+    `created_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    `updated_at` TIMESTAMP(6) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
