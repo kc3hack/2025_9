@@ -1,6 +1,8 @@
 import { getSSRApolloClient } from "@/graphql/client";
 import { gql } from "../../apollo/__generated__/client";
 
+export const dynamic = 'force-dynamic'
+
 const query = gql(`
   query GetUser($id: ID!){
     user(id: $id) {
@@ -11,13 +13,16 @@ const query = gql(`
 
 `)
 
+
 export default async function Home() {
-  const { data } = await getSSRApolloClient().query({
+  const { data, loading } = await getSSRApolloClient().query({
     query,
-    variables: { id: '1' },
-    fetchPolicy: 'no-cache',
-    errorPolicy: 'all',
+    variables: { id: '1' }
   })
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <main>
