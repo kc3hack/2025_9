@@ -8,6 +8,6 @@ RUN npm install
 COPY . .
 
 EXPOSE 3000
-RUN npx prisma generate && npm run build
+RUN npm run build
 
 CMD ["npm", "start"]
