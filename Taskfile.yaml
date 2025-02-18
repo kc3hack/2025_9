@@ -30,6 +30,11 @@ tasks:
     cmds:
       - docker compose build
 
+  setup:
+    desc: 開発環境をセットアップします
+    deps:
+      - nginx:makecert
+
   codegen:graphql:
     desc: GraphQLのコードジェネレータを実行します
     cmds:
@@ -51,3 +56,8 @@ tasks:
       - nan
     cmds:
       - npm -w packages/akane-next {{ .CLI_ARGS }}
+
+  nginx:makecert:
+    desc: nginx の証明書を生成します
+    cmds:
+      - sh docker/nginx/setup-certs.sh
