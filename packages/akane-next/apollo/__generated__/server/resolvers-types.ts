@@ -16,9 +16,21 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type Greet = {
+  __typename?: 'Greet';
+  name: Scalars['String']['output'];
+  text: Scalars['String']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  greet?: Maybe<Greet>;
   user?: Maybe<User>;
+};
+
+
+export type QueryGreetArgs = {
+  name: Scalars['String']['input'];
 };
 
 
@@ -104,6 +116,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Greet: ResolverTypeWrapper<Greet>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -113,13 +126,21 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
+  Greet: Greet;
   ID: Scalars['ID']['output'];
   Query: {};
   String: Scalars['String']['output'];
   User: User;
 };
 
+export type GreetResolvers<ContextType = any, ParentType extends ResolversParentTypes['Greet'] = ResolversParentTypes['Greet']> = {
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  greet?: Resolver<Maybe<ResolversTypes['Greet']>, ParentType, ContextType, RequireFields<QueryGreetArgs, 'name'>>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
 };
 
@@ -130,6 +151,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  Greet?: GreetResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

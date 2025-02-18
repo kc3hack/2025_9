@@ -16,9 +16,21 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type Greet = {
+  __typename?: 'Greet';
+  name: Scalars['String']['output'];
+  text: Scalars['String']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  greet?: Maybe<Greet>;
   user?: Maybe<User>;
+};
+
+
+export type QueryGreetArgs = {
+  name: Scalars['String']['input'];
 };
 
 
