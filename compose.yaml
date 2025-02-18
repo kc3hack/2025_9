@@ -6,6 +6,7 @@ services:
     command: ["npm", "run", "dev"]
     ports:
       - "3000:3000"
+      - "5555:5555" # for prisma studio
     develop:
       watch:
         - action: sync
@@ -13,8 +14,12 @@ services:
           target: /app
           ignore:
             - node_modules
+            - .next
         - action: rebuild
           path: package.json
+    environment:
+      DATABASE_URL: "mysql://root@db:3306/akane"
+
   nginx:
     image: nginx:latest
     build:
@@ -23,3 +28,16 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    depends_on:
+      - db
+      - akane-next
+
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: akane
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./tmp/mysql:/var/lib/mysql
