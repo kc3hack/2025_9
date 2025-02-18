@@ -30,15 +30,18 @@ export default function MapLayout({
                 style: 'mapbox://styles/mapbox/streets-v11',
                 center: [135.739078, 34.995022],
                 zoom: 20,
-            });
-
-            const language = new MapboxLanguage({ defaultLanguage: 'ja' });
-            map.addControl(language);
-
-            map.on('load', () => {
+            }).addControl(
+                new MapboxLanguage({ defaultLanguage: 'ja' })
+            ).on('load', () => {
                 setMap(map);
                 map.resize();
             });
+            
+            new mapboxgl.Marker({ color: "#d259ee" })
+                .setLngLat([135.739078, 34.995022])
+                .addTo(map)
+                .setPopup(new mapboxgl.Popup().setHTML('<h1>Hello, world!</h1>'));
+            
         };
 
         if (!map) initializeMap({ setMap, mapContainer });
