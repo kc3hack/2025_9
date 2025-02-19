@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../prisma/client";
 
+type Hint = {
+  id: bigint;
+  title: string;
+  content: string;
+  image_url: string | null;
+};
+
 export async function GET() {
   const hints = await prisma.hint.findMany();
   // BigIntをStringに変換しないと.jsonでエラーが出る
   return NextResponse.json(
-    hints.map((hint) => ({
+    hints.map((hint: Hint) => ({
       ...hint,
       id: hint.id.toString(),
     }))
