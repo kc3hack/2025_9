@@ -45,6 +45,10 @@ export default function MapLayout({
         };
 
         if (!map) initializeMap({ setMap, mapContainer });
+
+        return () => {
+            if (map) map.remove();
+        };
     }, [map]);
 
     return (
