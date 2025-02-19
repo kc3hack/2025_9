@@ -12,18 +12,23 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const res = await request.json();
+  try {
+    const { title, content, image_url } = await request.json();
 
-  const hint = await createHint({
-    title: res.title,
-    content: res.content,
-    image_url: res.image_url,
-  });
-
-  // hintsのidがBigIntなので、Stringに変換して返さないとエラーになる
-  return new Response(SafeJSON.stringify(hint), {
-    headers: {
-      "content-type": "application/json",
-    },
-  });
+    const hint = await createHint({
+      title: title,
+      content: content,
+      image_url: image_url,
+    });
+    return new Response(SafeJSON.stringify(hint), {
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+  } catch {
+    return new Response("Bad Request", {
+      status: 400,
+    });
+  }
 }
+// hintsのidがBigIntなので、Stringに変換して返さないとエラーになる

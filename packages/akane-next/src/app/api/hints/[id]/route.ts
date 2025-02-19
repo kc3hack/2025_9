@@ -23,19 +23,25 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const id = (await params).id;
-  const res = await request.json();
-  const hint = await updateHint({
-    id: BigInt(id),
-    title: res.title,
-    content: res.content,
-    image_url: res.image_url,
-  });
-  // BigIntをStringに変換しないと.jsonでエラーが出る
-  return new Response(SafeJSON.stringify(hint), {
-    headers: {
-      "content-type": "application/json",
-    },
-  });
+  try {
+    const { title, content, image_url } = await request.json();
+    const hint = await updateHint({
+      id: BigInt(id),
+      title: title,
+      content: content,
+      image_url: image_url,
+    });
+    // BigIntをStringに変換しないと.jsonでエラーが出る
+    return new Response(SafeJSON.stringify(hint), {
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+  } catch {
+    return new Response("Bad Request", {
+      status: 400,
+    });
+  }
 }
 
 export async function DELETE(
