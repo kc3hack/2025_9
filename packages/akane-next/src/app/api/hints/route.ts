@@ -1,17 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { getHints, createHint } from "@/services/hintService";
-import { Hint } from "@/services/hintService";
+import SafeJSON from "@/helper/json";
 
 export async function GET() {
   const hints = await getHints();
-
-  // hintsのidがBigIntなので、Stringに変換して返さないとエラーになる
-  return NextResponse.json(
-    hints.map((hint: Hint) => ({
-      ...hint,
-      id: hint.id.toString(),
-    }))
-  );
+  return new Response(SafeJSON.stringify(hints), {
+    headers: {
+      "content-type": "application/json",
+    },
+  });
 }
 
 export async function POST(request: NextRequest) {
@@ -24,8 +21,9 @@ export async function POST(request: NextRequest) {
   });
 
   // hintsのidがBigIntなので、Stringに変換して返さないとエラーになる
-  return NextResponse.json({
-    ...hint,
-    id: hint.id.toString(),
+  return new Response(SafeJSON.stringify(hint), {
+    headers: {
+      "content-type": "application/json",
+    },
   });
 }

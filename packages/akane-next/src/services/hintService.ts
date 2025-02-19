@@ -1,33 +1,18 @@
 import prisma from "../prisma/client";
-
-export type Hint = {
-  id: bigint;
-  title: string;
-  content: string;
-  image_url: string | null;
-  created_at: Date;
-  updated_at: Date;
-};
-
-type createHintContents = {
-  title: string;
-  content: string;
-  image_url: string | null;
-};
-
-type updateHintContents = createHintContents & {
-  id: bigint;
-};
+import { createUuid } from "@/helper/createuuid";
+import { Hint } from "@/model/hint";
 
 export async function getHints(): Promise<Hint[]> {
   const hints = await prisma.hint.findMany();
   return hints;
 }
 
-export async function createHint(hint: createHintContents): Promise<Hint> {
-  const [{ id }] = await prisma.$queryRaw<
-    Array<{ id: bigint }>
-  >`SELECT UUID_SHORT() as id`;
+export async function createHint(hint: {
+  title: string;
+  content: string;
+  image_url: string | null;
+}): Promise<Hint> {
+  const id = await createUuid();
 
   const newHint = await prisma.hint.create({
     data: {
@@ -47,7 +32,12 @@ export async function getHint(id: bigint): Promise<Hint | null> {
   return hint;
 }
 
-export async function updateHint(hint: updateHintContents): Promise<Hint> {
+export async function updateHint(hint: {
+  id: bigint;
+  title: string;
+  content: string;
+  image_url: string | null;
+}): Promise<Hint> {
   const updatedHint = await prisma.hint.update({
     where: { id: hint.id },
     data: {
