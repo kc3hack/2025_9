@@ -31,7 +31,6 @@ export async function PUT(
       content: content,
       image_url: image_url,
     });
-    // BigIntをStringに変換しないと.jsonでエラーが出る
     return new Response(SafeJSON.stringify(hint), {
       headers: {
         "content-type": "application/json",
@@ -50,7 +49,6 @@ export async function DELETE(
 ) {
   const slug = (await params).id;
   const hint = await deleteHint(BigInt(slug));
-  // BigIntをStringに変換しないと.jsonでエラーが出る
   return new Response(SafeJSON.stringify(hint), {
     headers: {
       "content-type": "application/json",

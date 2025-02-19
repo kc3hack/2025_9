@@ -31,4 +31,3 @@ export async function POST(request: NextRequest) {
     });
   }
 }
-// hintsのidがBigIntなので、Stringに変換して返さないとエラーになる
