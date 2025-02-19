@@ -1,16 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "../../../../prisma/client";
-
-type Hint = {
-  id: bigint;
-  title: string;
-  content: string;
-  image_url: string | null;
-};
+import { Hint } from "@prisma/client";
+import { getHints, createHint } from "@/services/hintService";
 
 export async function GET() {
-  const hints = await prisma.hint.findMany();
-  // BigIntをStringに変換しないと.jsonでエラーが出る
+  const hints = await getHints();
+
+  // hintsのidがBigIntなので、Stringに変換して返さないとエラーになる
   return NextResponse.json(
     hints.map((hint: Hint) => ({
       ...hint,
@@ -22,20 +17,15 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   const res = await request.json();
 
-  const [{ id }] = await prisma.$queryRaw<
-    Array<{ id: bigint }>
-  >`SELECT UUID_SHORT() as id`;
-  const hint = await prisma.hint.create({
-    data: {
-      id: id,
-      title: res.title,
-      content: res.content,
-      image_url: res.image_url,
-    },
+  const hint = await createHint({
+    title: res.title,
+    content: res.content,
+    image_url: res.image_url,
   });
-  // BigIntをStringに変換しないと.jsonでエラーが出る
+
+  // hintsのidがBigIntなので、Stringに変換して返さないとエラーになる
   return NextResponse.json({
     ...hint,
-    id: id.toString(),
+    id: hint.id.toString(),
   });
 }
