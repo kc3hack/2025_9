@@ -1,5 +1,13 @@
 import prisma from "../prisma/client";
-import { Hint as ResponseHint } from "@prisma/client";
+
+type Hint = {
+  id: bigint;
+  title: string;
+  content: string;
+  image_url: string | null;
+  created_at: Date;
+  updated_at: Date;
+};
 
 type createHintContents = {
   title: string;
@@ -11,14 +19,12 @@ type updateHintContents = createHintContents & {
   id: bigint;
 };
 
-export async function getHints(): Promise<ResponseHint[]> {
+export async function getHints(): Promise<Hint[]> {
   const hints = await prisma.hint.findMany();
   return hints;
 }
 
-export async function createHint(
-  hint: createHintContents
-): Promise<ResponseHint> {
+export async function createHint(hint: createHintContents): Promise<Hint> {
   const [{ id }] = await prisma.$queryRaw<
     Array<{ id: bigint }>
   >`SELECT UUID_SHORT() as id`;
@@ -34,16 +40,14 @@ export async function createHint(
   return newHint;
 }
 
-export async function getHint(id: bigint): Promise<ResponseHint | null> {
+export async function getHint(id: bigint): Promise<Hint | null> {
   const hint = await prisma.hint.findUnique({
     where: { id: id },
   });
   return hint;
 }
 
-export async function updateHint(
-  hint: updateHintContents
-): Promise<ResponseHint> {
+export async function updateHint(hint: updateHintContents): Promise<Hint> {
   const updatedHint = await prisma.hint.update({
     where: { id: hint.id },
     data: {
@@ -55,7 +59,7 @@ export async function updateHint(
   return updatedHint;
 }
 
-export async function deleteHint(id: bigint): Promise<ResponseHint> {
+export async function deleteHint(id: bigint): Promise<Hint> {
   const deletedHint = await prisma.hint.delete({
     where: { id: id },
   });
