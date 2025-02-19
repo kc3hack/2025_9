@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Hint } from "@prisma/client";
 import { getHints, createHint } from "@/services/hintService";
+import { Hint } from "@/services/hintService";
 
 export async function GET() {
   const hints = await getHints();

@@ -1,6 +1,6 @@
 import prisma from "../prisma/client";
 
-type Hint = {
+export type Hint = {
   id: bigint;
   title: string;
   content: string;
