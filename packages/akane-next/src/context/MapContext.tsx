@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
+import React, { createContext, useState, useEffect, ReactNode, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
 
@@ -9,15 +9,7 @@ interface MapContextProps {
     isMapLoaded: boolean;
 }
 
-const MapContext = createContext<MapContextProps | undefined>(undefined);
-
-export const useMap = () => {
-    const context = useContext(MapContext);
-    if (!context) {
-        throw new Error('useMap must be used within a MapProvider');
-    }
-    return context;
-};
+export const MapContext = createContext<MapContextProps | undefined>(undefined);
 
 export const MapProvider = ({ children }: { children: ReactNode }) => {
     const [map, setMap] = useState<mapboxgl.Map | null>(null);

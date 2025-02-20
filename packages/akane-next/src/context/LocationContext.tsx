@@ -1,20 +1,13 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useMap } from '@/hooks/MapHook';
+import React, { createContext, useState, useEffect, ReactNode } from 'react';
 
 interface LocationContextProps {
     position: GeolocationPosition | null;
     setPosition: React.Dispatch<React.SetStateAction<GeolocationPosition | null>>;
 }
 
-const LocationContext = createContext<LocationContextProps | undefined>(undefined);
-
-export const useLocation = () => {
-    const context = useContext(LocationContext);
-    if (!context) {
-        throw new Error('useLocation must be used within a LocationProvider');
-    }
-    return context;
-};
+export const LocationContext = createContext<LocationContextProps | undefined>(undefined);
 
 export const LocationProvider = ({ children }: { children: ReactNode }) => {
     const [position, setPosition] = useState<GeolocationPosition | null>(null);
