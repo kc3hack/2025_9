@@ -2,8 +2,6 @@ name: nginx-push-ghcr
 
 on:
   push:
-    branches:
-      - main
   pull_request:
     types:
       - opened
@@ -54,8 +52,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ./docker/nginx
-          file: ./docker/nginx/Dockerfile
+          context: ./docker/production/nginx
+          file: ./docker/production/nginx/Dockerfile
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
