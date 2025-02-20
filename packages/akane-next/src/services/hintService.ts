@@ -23,7 +23,7 @@ class Service {
 
   async findHints(): Promise<Hint[]> {
     const hints = await prisma.hint.findMany();
-    return hints.map((hint) => this.mapToHintDTO(hint));
+    return hints.map((hint: Hint) => this.mapToHintDTO(hint));
   }
 
   async findHint(id: bigint): Promise<Hint | null> {

@@ -1,14 +1,10 @@
 import { NextRequest } from "next/server";
 import { HintService } from "@/services/hintService";
-import SafeJSON from "@/helper/json";
+import { BadRequestResponse, JSONResponse } from "@/helper/response";
 
 export async function GET() {
   const hints = await HintService.findHints();
-  return new Response(SafeJSON.stringify(hints), {
-    headers: {
-      "content-type": "application/json",
-    },
-  });
+  return JSONResponse(hints);
 }
 
 export async function POST(request: NextRequest) {
@@ -20,14 +16,8 @@ export async function POST(request: NextRequest) {
       content: content,
       image_url: image_url,
     });
-    return new Response(SafeJSON.stringify(hint), {
-      headers: {
-        "content-type": "application/json",
-      },
-    });
+    return JSONResponse(hint);
   } catch {
-    return new Response("Bad Request", {
-      status: 400,
-    });
+    return BadRequestResponse();
   }
 }
