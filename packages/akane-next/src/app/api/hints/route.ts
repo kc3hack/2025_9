@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
   const offset = ParseQueryParam(searchParams.get("offset"));
   // FIFOの形式でデータは取得される
   // offsetが大きいほど新しいでデータが取得される
+  // limitとoffsetがundefinedの場合はデフォルト値のlimit:10とoffset:0が適用される
   const hints = await HintService.findHints(limit, offset);
   if (!hints) {
     return NotFoundResponse("Hints");

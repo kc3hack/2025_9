@@ -25,6 +25,7 @@ class Service {
    * ヒントを複数取得します
    *
    * FIFOの形式でデータは取得されます。そのため、offsetが大きいほど新しいデータが取得されます。
+   * limitとoffsetにundefinedを指定すると、デフォルト値が適用されます。
    *
    * @param {number} limit 取得するデータの数
    * @param {number} offset 取得するデータの開始位置
