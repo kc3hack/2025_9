@@ -3,10 +3,10 @@
  *
  * もしクエリパラメータがnullの場合はundefinedを返す
  *
- * もしクエリパラメータが数値に変換できない場合にもundefinedを返す
+ * クエリパラメータが数値に変換できない場合にもundefinedを返す
  *
- * @param param
- * @returns
+ * @param param パースするクエリパラメータ, string | null
+ * @returns パースした数値, number | undefined
  */
 
 export function ParseQueryParam(param: string | null): number | undefined {
