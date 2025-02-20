@@ -21,12 +21,17 @@ class Service {
     };
   }
 
-  // limit: 取得するデータの数
-  // offset: 取得するデータの開始位置
+  /**
+   * ヒントを複数取得します
+   *
+   * FIFOの形式でデータは取得されます。そのため、offsetが大きいほど新しいデータが取得されます。
+   *
+   * @param {number} limit 取得するデータの数
+   * @param {number} offset 取得するデータの開始位置
+   * @returns {Promise<Hint[]>} ヒントのリスト
+   *  */
   // TODO: 複数IDを指定して取得するメソッドを追加する
   async findHints(limit: number = 10, offset: number = 0): Promise<Hint[]> {
-    // FIFOの形式でデータは取得される
-    // offsetが大きいほど新しいでデータが取得される
     const hints = await prisma.hint.findMany({
       take: limit,
       skip: offset,

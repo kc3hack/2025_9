@@ -19,7 +19,12 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const id = (await params).id;
-  const { title, content, image_url } = await request.json();
+  const {
+    title,
+    content,
+    image_url,
+  }: { title: string; content: string; image_url: string | null } =
+    await request.json();
   // PATCHとしても使えるように、titleやcontentがない場合でも更新できるようにしている
   const hint = await HintService.updateHint({
     id: BigInt(id),
