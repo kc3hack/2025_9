@@ -21,33 +21,33 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
-        setPosition(position);
-    });
+            setPosition(position);
+        });
 
         const watchId = navigator.geolocation.watchPosition(
-        setPosition,
-        (error) => {
-            switch (error.code) {
-            case error.PERMISSION_DENIED:
-                alert('位置情報の取得が許可されていません');
-                break;
-            case error.POSITION_UNAVAILABLE:
-                alert('位置情報が利用できません');
-                break;
-            case error.TIMEOUT:
-                alert('位置情報の取得にタイムアウトしました');
-                break;
-            default:
-                alert('位置情報の取得中にエラーが発生しました');
-                break;
+            setPosition,
+            (error) => {
+                switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert('位置情報の取得が許可されていません');
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert('位置情報が利用できません');
+                    break;
+                case error.TIMEOUT:
+                    alert('位置情報の取得にタイムアウトしました');
+                    break;
+                default:
+                    alert('位置情報の取得中にエラーが発生しました');
+                    break;
+                }
+                setPosition(null);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 0,
             }
-            setPosition(null);
-        },
-        {
-            enableHighAccuracy: true,
-            timeout: 15000,
-            maximumAge: 0,
-        }
         );
 
         return () => {
