@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans_JP } from 'next/font/google';
 import "./globals.css";
 import { Provider } from "@/components/ui/provider";
 import { WithApolloProvider } from "@/graphql/provider";
+import { LocationProvider } from "@/context/LocationContext";
+import { MapProvider } from "@/context/MapContext";
 
-const ibmPlexSansJp = IBM_Plex_Sans_JP({
-  weight: ['200', '400', '700'],
-  subsets: ['latin-ext'],
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,10 +18,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <body className={`${ibmPlexSansJp.className}`}>
+      <body>
         <WithApolloProvider>
           <Provider>
-            {children}
+            <MapProvider>
+              <LocationProvider>
+                {children}
+              </LocationProvider>
+            </MapProvider>
           </Provider>
         </WithApolloProvider>
       </body>
