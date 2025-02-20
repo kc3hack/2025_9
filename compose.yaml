@@ -5,7 +5,7 @@ services:
       dockerfile: ../../docker/akane-next/Dockerfile
     command: ["npm", "run", "dev"]
     ports:
-      - "3000:3000"
+      - "3800:3000"
       - "5555:5555" # for prisma studio
     develop:
       watch:
@@ -19,6 +19,8 @@ services:
           path: package.json
     environment:
       DATABASE_URL: "mysql://root@db:3306/akane"
+    depends_on:
+      - db
 
   nginx:
     image: nginx:latest
@@ -26,10 +28,8 @@ services:
       context: docker/nginx
       dockerfile: ./Dockerfile
     ports:
-      - "80:80"
       - "443:443"
     depends_on:
-      - db
       - akane-next
 
   db:
