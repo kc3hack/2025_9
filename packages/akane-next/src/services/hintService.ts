@@ -21,8 +21,15 @@ class Service {
     };
   }
 
-  async findHints(): Promise<Hint[]> {
-    const hints = await prisma.hint.findMany();
+  // limit: 取得するデータの数
+  // offset: 取得するデータの開始位置
+  async findHints(limit: number = 10, offset: number = 0): Promise<Hint[]> {
+    // FIFOの形式でデータは取得される
+    // offsetが大きいほど新しいでデータが取得される
+    const hints = await prisma.hint.findMany({
+      take: limit,
+      skip: offset,
+    });
     return hints.map((hint: Hint) => this.mapToHintDTO(hint));
   }
 

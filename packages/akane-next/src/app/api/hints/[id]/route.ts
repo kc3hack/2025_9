@@ -1,10 +1,6 @@
 import { NextRequest } from "next/server";
 import { HintService } from "@/services/hintService";
-import {
-  BadRequestResponse,
-  ErrorResponse,
-  JSONResponse,
-} from "@/helper/response";
+import { ErrorResponse, JSONResponse } from "@/helper/response";
 
 export async function GET(
   request: NextRequest,
@@ -24,9 +20,7 @@ export async function PUT(
 ) {
   const id = (await params).id;
   const { title, content, image_url } = await request.json();
-  if (!title || !content) {
-    return BadRequestResponse();
-  }
+  // PATCHとしても使えるように、titleやcontentがない場合でも更新できるようにしている
   const hint = await HintService.updateHint({
     id: BigInt(id),
     title: title,
