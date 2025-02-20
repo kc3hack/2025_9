@@ -1,7 +1,6 @@
 import { NextRequest } from "next/server";
 import { HintService } from "@/services/hintService";
-import { JSONResponse } from "@/helper/response";
-import { notFound } from "next/navigation";
+import { JSONResponse, NotFoundResponse } from "@/helper/response";
 
 export async function GET(
   request: NextRequest,
@@ -10,7 +9,7 @@ export async function GET(
   const id = (await params).id;
   const hint = await HintService.findHint(BigInt(id));
   if (!hint) {
-    return notFound;
+    return NotFoundResponse("Hint");
   }
   return JSONResponse(hint);
 }
