@@ -55,13 +55,11 @@ export default function MapLayout({
                     'circle-stroke-width': 2,
                 },
             });
-            /*
             map.flyTo({
                 center: [position.coords.longitude, position.coords.latitude],
                 zoom: 20,
                 duration: 500,
             });
-            */
         }
 
         return () => {

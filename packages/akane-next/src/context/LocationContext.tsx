@@ -53,6 +53,8 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
         return () => {
             navigator.geolocation.clearWatch(watchId);
         };
+        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
