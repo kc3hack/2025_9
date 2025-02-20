@@ -21,11 +21,11 @@ export default function RootLayout({
       <body>
         <WithApolloProvider>
           <Provider>
-            <LocationProvider>
-              <MapProvider>
+            <MapProvider>
+              <LocationProvider>
                 {children}
-              </MapProvider>
-            </LocationProvider>
+              </LocationProvider>
+            </MapProvider>
           </Provider>
         </WithApolloProvider>
       </body>

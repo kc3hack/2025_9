@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState, ReactNode } from 'react';
-import { useLocation } from '@/context/LocationContext';
-import { useMap } from '@/context/MapContext';
+import { useLocation } from '@/hooks/LocationHook';
+import { useMap } from '@/hooks/MapHook';
 
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';

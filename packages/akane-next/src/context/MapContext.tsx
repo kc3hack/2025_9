@@ -28,6 +28,13 @@ export const MapProvider = ({ children }: { children: ReactNode }) => {
                 new MapboxLanguage({ defaultLanguage: 'ja' })
             ).on('load', () => {
                 setIsMapLoaded(true);
+                navigator.geolocation.getCurrentPosition((position) => {
+                    mapInstance.flyTo({
+                        center: [position.coords.longitude, position.coords.latitude],
+                        zoom: 20,
+                        duration: 0,
+                    });
+                });
             });
 
             setMap(mapInstance);

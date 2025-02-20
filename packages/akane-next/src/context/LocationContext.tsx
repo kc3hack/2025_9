@@ -11,10 +11,17 @@ export const LocationContext = createContext<LocationContextProps | undefined>(u
 
 export const LocationProvider = ({ children }: { children: ReactNode }) => {
     const [position, setPosition] = useState<GeolocationPosition | null>(null);
+    const map = useMap();
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
-            setPosition(position);
+            // useMap hook called at the top level
+            if (map.map && map.isMapLoaded && position) {
+                map.map.flyTo({
+                    center: [position.coords.longitude, position.coords.latitude],
+                    zoom: 20,
+                });
+            }
         });
 
         const watchId = navigator.geolocation.watchPosition(
