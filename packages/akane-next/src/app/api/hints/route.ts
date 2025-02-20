@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { HintService } from "@/services/hintService";
 import { BadRequestResponse, JSONResponse } from "@/helper/response";
+import { notFound } from "next/navigation";
 
 function searchAndParseQueryParam(param: string | null): number | undefined {
   return param ? parseInt(param) : undefined;
@@ -13,6 +14,9 @@ export async function GET(request: NextRequest) {
   // FIFOの形式でデータは取得される
   // offsetが大きいほど新しいでデータが取得される
   const hints = await HintService.findHints(limit, offset);
+  if (!hints) {
+    return notFound();
+  }
   return JSONResponse(hints);
 }
 
