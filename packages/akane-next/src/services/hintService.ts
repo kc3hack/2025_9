@@ -23,6 +23,7 @@ class Service {
 
   // limit: 取得するデータの数
   // offset: 取得するデータの開始位置
+  // TODO: 複数IDを指定して取得するメソッドを追加する
   async findHints(limit: number = 10, offset: number = 0): Promise<Hint[]> {
     // FIFOの形式でデータは取得される
     // offsetが大きいほど新しいでデータが取得される
