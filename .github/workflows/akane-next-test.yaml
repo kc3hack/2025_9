@@ -41,7 +41,7 @@ jobs:
       - name: Build
         run: npm run build -w packages/akane-next
 
-  build-and-push:
+  next-build-and-push:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -81,6 +81,55 @@ jobs:
         with:
           context: ./packages/akane-next
           file: ./docker/akane-next/Dockerfile
+          platforms: linux/amd64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
+          provenance: false
+        env:
+          NODE_ENV: production
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+  nginx-push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+      id-token: write
+      actions: write
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/metadata-action@v4
+        id: meta
+        with:
+          images: ghcr.io/${{ github.repository }}/akane-nginx
+          # デフォルトブランチの時だけ latest タグをつけてそれ以外は日時とコミットハッシュをつける
+          # ref: https://github.com/docker/metadata-action?tab=readme-ov-file#customizing
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value={{date 'YYYYMMDD-HHmmss' tz='Asia/Tokyo'}}-{{sha}}
+          # Open Container Initiative (OCI) の Image Spec に基づくラベル
+          # ref:
+          # - https://github.com/opencontainers/image-spec/blob/fbb4662eb53b80bd38f7597406cf1211317768f0/annotations.md?plain=1#L18-L26
+          labels: |
+            org.opencontainers.image.authors="rokuosan, taiseiue, nenrinyear, Retasusan, ikotome"
+            org.opencontainers.image.url="https://github.com/kc3hack/2025_9"
+            org.opencontainers.image.documentation="https://github.com/kc3hack/2025_9"
+            org.opencontainers.image.source="https://github.com/kc3hack/2025_9"
+      - name: Push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./docker/production/nginx
+          file: ./docker/production/nginx/Dockerfile
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
