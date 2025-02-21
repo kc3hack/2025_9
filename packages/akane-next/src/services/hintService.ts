@@ -10,7 +10,7 @@ class Service {
     this.db = db;
   }
 
-  private mapToHintDTO(data: Hint): Hint {
+  private toHintDTO(data: Hint): Hint {
     return {
       id: data.id,
       title: data.title,
@@ -37,7 +37,7 @@ class Service {
       take: limit,
       skip: offset,
     });
-    return hints.map((hint: Hint) => this.mapToHintDTO(hint));
+    return hints.map((hint: Hint) => this.toHintDTO(hint));
   }
 
   async findHint(id: bigint): Promise<Hint | null> {
@@ -45,7 +45,7 @@ class Service {
       where: { id: id },
     });
     if (!hint) return null;
-    return this.mapToHintDTO(hint);
+    return this.toHintDTO(hint);
   }
 
   async createHint(hint: {
@@ -63,7 +63,7 @@ class Service {
         image_url: hint.image_url,
       },
     });
-    return this.mapToHintDTO(newHint);
+    return this.toHintDTO(newHint);
   }
 
   async updateHint(hint: {
@@ -80,14 +80,14 @@ class Service {
         image_url: hint.image_url,
       },
     });
-    return this.mapToHintDTO(updatedHint);
+    return this.toHintDTO(updatedHint);
   }
 
   async deleteHint(id: bigint): Promise<Hint> {
     const deletedHint = await prisma.hint.delete({
       where: { id: id },
     });
-    return this.mapToHintDTO(deletedHint);
+    return this.toHintDTO(deletedHint);
   }
 }
 
