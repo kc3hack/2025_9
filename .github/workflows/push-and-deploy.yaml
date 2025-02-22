@@ -120,9 +120,9 @@ jobs:
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.STAGING_HOST }}
+          username: ${{ secrets.STAGING_USERNAME }}
+          key: ${{ secrets.STAGING_PRIVATE_KEY }}
           script: |
             cd ~/yaken/2025_9 && git pull
-            . ~/yaken/2025_9/production/script/deploy ${{ secrets.KEYCHAIN_PASSWORD }} ${{ secrets.GHCR_USER }} ${{ secrets.GHCR_TOKEN }}
+            . ~/yaken/2025_9/production/script/deploy-staging ${{ secrets.KEYCHAIN_PASSWORD }} ${{ secrets.GHCR_USER }} ${{ secrets.GHCR_TOKEN }}
