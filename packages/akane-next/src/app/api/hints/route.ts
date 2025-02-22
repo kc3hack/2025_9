@@ -7,6 +7,13 @@ import {
 } from "@/helper/response";
 import { ParseQueryParam } from "@/helper/parseQuery";
 
+/**
+ * (一応)requestの送り方：
+ * "domain/api/hints/?offset=5&limit=30"
+ *
+ * @param request
+ * @returns
+ */
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const limit = ParseQueryParam(searchParams.get("limit"));
