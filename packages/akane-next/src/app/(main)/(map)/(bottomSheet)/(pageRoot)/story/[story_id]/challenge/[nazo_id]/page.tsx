@@ -1,14 +1,14 @@
 import { Text } from "@chakra-ui/react";
 
-export default function NazoChallengePage({
+export default async function NazoChallengePage({
     params,
 }: {
     params: {
-        story_id: string;
-        nazo_id: string;
+        story_id: Promise<string>;
+        nazo_id: Promise<string>;
     };
 }) {
-    const { story_id, nazo_id } = params;
+    const { story_id, nazo_id } = await params;
     // /story/1/challenge/1
     // クイズに正解すると /story/1/challenge/2 (同じこのファイルに戻って来る)
     return (
