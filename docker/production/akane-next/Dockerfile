@@ -22,29 +22,17 @@ COPY --chown=node:node package.json package-lock.json ./
 RUN npm ci
 
 #
-# 開発環境向け
+# 本番環境向け
 #
-FROM base AS development
+FROM base AS production
 
 USER node
 WORKDIR /app
 
-COPY --chown=node:node . .
-COPY --from=base --chown=node:node /app/node_modules ./node_modules
+COPY --chown=node:node --from=build /app/.next ./.next
+COPY --chown=node:node --from=build /app/public ./public
+COPY --chown=node:node --from=build /app/next.config.ts ./next.config.ts
+COPY --chown=node:node --from=build /app/package.json ./package.json
+COPY --chown=node:node --from=build /app/node_modules ./node_modules
 
-RUN npm run prisma:generate
-
-CMD ["npm", "run", "dev"]
-
-#
-# ビルドだけしておく image
-#
-FROM base AS build
-
-RUN mkdir -p /app/.next
-
-WORKDIR /app
-COPY --chown=node:node . .
-COPY --from=base --chown=node:node /app/node_modules ./node_modules
-
-RUN npm run build
+CMD ["npm", "start"]
