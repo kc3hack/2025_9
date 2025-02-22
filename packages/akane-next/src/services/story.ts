@@ -62,6 +62,27 @@ class Service {
 		});
 		return data;
 	}
+
+	async updateStory(id: bigint, story: Partial<DBStory>): Promise<DBStory> {
+		const data = await this.db.story.update({
+			where: { id: id },
+			data: {
+				title: story.title,
+				content: story.content,
+				image_url: story.image_url,
+				type: story.type,
+				status: story.status,
+				difficulty: story.difficulty,
+				estimated_time: story.estimated_time,
+				area: story.area,
+				latitude: story.latitude,
+				longitude: story.longitude,
+				radius: story.radius,
+				pin_class: story.pin_class,
+			},
+		});
+		return data;
+	}
 }
 
 export const StoryService = new Service(prisma);
