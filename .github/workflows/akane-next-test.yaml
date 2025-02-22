@@ -83,13 +83,13 @@ jobs:
         with:
           context: ./packages/akane-next
           file: ./docker/akane-next/Dockerfile
+          target: production
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           provenance: false
-        env:
-          NODE_ENV: production
-          DATABASE_URL: "mysql://root@db:3306/akane"
+          args: |
+            DATABASE_URL=mysql://root@db:3306/akane
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
