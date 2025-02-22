@@ -22,7 +22,7 @@ class Service {
 		};
 	}
 
-	async findQuestionByID(id: bigint): Promise<Question | null> {
+	async findQuestionByID(id: bigint): Promise<PrismaQuestion | null> {
 		const data = await this.db.question.findUnique({
 			where: {
 				id: id,
@@ -30,7 +30,7 @@ class Service {
 		});
 		if (!data) return null;
 
-		return this.toQuestionDTO(data);
+		return data;
 	}
 
 	async findQuestionsByStoryID(storyID: bigint): Promise<Question[]> {
