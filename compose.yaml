@@ -3,6 +3,13 @@ services:
     build:
       context: packages/akane-next
       dockerfile: ../../docker/akane-next/Dockerfile
+      target: development
+      args:
+        NODE_ENV: development
+        DATABASE_URL: "mysql://root@db:3306/akane"
+        MAPBOX_MAP_STYLE: ""
+        MAPBOX_ACCESS_TOKEN: ""
+    init: true
     command: ["npm", "run", "dev"]
     ports:
       - "3800:3000"
@@ -23,7 +30,6 @@ services:
       - db
 
   nginx:
-    image: nginx:latest
     build:
       context: docker/nginx
       dockerfile: ./Dockerfile
