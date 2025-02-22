@@ -4,16 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-    paths:
-      - "packages/akane-next/**"
-      - ".github/workflows/akane-next-test.yaml"
-      - "docker/akane-next/**"
-      - "compose.yaml"
   workflow_dispatch:
 
 jobs:
