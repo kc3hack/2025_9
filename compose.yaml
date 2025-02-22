@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/akane-next/Dockerfile
-      target: production
+      target: development
       args:
         DATABASE_URL: "mysql://root@db:3306/akane"
         MAPBOX_MAP_STYLE: "mapbox://styles/nenrin/cm77whskd00sl01reh909h23j"
