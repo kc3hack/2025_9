@@ -35,6 +35,7 @@
     "react-icons": "^5.4.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@chromatic-com/storybook": "^3.2.4",
     "@eslint/eslintrc": "^3",
     "@graphql-codegen/cli": "^5.0.5",
