@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Provider } from "@/components/ui/provider";
 import { WithApolloProvider } from "@/graphql/provider";
-import { LocationProvider } from "@/context/LocationContext";
-import { MapProvider } from "@/context/MapContext";
 
 
 export const metadata: Metadata = {
@@ -21,11 +19,7 @@ export default function RootLayout({
       <body>
         <WithApolloProvider>
           <Provider>
-            <MapProvider>
-              <LocationProvider>
-                {children}
-              </LocationProvider>
-            </MapProvider>
+            {children}
           </Provider>
         </WithApolloProvider>
       </body>
