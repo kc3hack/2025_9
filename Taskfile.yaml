@@ -34,6 +34,14 @@ tasks:
     cmds:
       - docker compose build
 
+  test:
+    desc: テストを実行します
+    dir: packages/akane-next
+    cmds:
+      - npm run test
+    env:
+      DATABASE_URL: "mysql://root@db:3306/akane"
+
   setup:
     desc: 開発環境をセットアップします
     deps:
