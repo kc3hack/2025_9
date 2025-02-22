@@ -30,6 +30,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Install Task
+        uses: arduino/setup-task@v2
+        with:
+          version: 3.x
+      - name: start services
+        run: docker compose up -d --quiet-pull
       - name: Install dependencies
         run: npm ci -w packages/akane-next
       - name: Generate Prisma
@@ -39,59 +45,6 @@ jobs:
       - name: Lint
         run: npm run lint -w packages/akane-next
       - name: Test
-        run: npm run test -w packages/akane-next
+        run: task test
       - name: Build
         run: npm run build -w packages/akane-next
-
-  build-and-push:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      pull-requests: read
-      id-token: write
-      actions: write
-      packages: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: docker/metadata-action@v4
-        id: meta
-        with:
-          images: ghcr.io/${{ github.repository }}/akane-next
-          # デフォルトブランチの時だけ latest タグをつけてそれ以外は日時とコミットハッシュをつける
-          # ref: https://github.com/docker/metadata-action?tab=readme-ov-file#customizing
-          tags: |
-            type=raw,value=latest,enable={{is_default_branch}}
-            type=raw,value={{date 'YYYYMMDD-HHmmss' tz='Asia/Tokyo'}}-{{sha}}
-          # Open Container Initiative (OCI) の Image Spec に基づくラベル
-          # ref:
-          # - https://github.com/opencontainers/image-spec/blob/fbb4662eb53b80bd38f7597406cf1211317768f0/annotations.md?plain=1#L18-L26
-          labels: |
-            org.opencontainers.image.authors="rokuosan, taiseiue, nenrinyear, Retasusan, ikotome"
-            org.opencontainers.image.url="https://github.com/kc3hack/2025_9"
-            org.opencontainers.image.documentation="https://github.com/kc3hack/2025_9"
-            org.opencontainers.image.source="https://github.com/kc3hack/2025_9"
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: ./packages/akane-next
-          file: ./docker/akane-next/Dockerfile
-          target: production
-          platforms: linux/amd64
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          push: true
-          provenance: false
-          build-args: |
-            DATABASE_URL=mysql://root@db:3306/akane
-            MAPBOX_MAP_STYLE=mapbox://styles/nenrin/cm77whskd00sl01reh909h23j
-            MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
