@@ -1,6 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { QuestionService } from "./question";
+import { ShortUUID } from "@/helper/test/uuid";
 import type { PrismaClient } from "@prisma/client";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { QuestionService } from "./question";
 
 describe("QuestionService", () => {
 	let fakeDb: PrismaClient;
@@ -37,7 +38,7 @@ describe("QuestionService", () => {
 			const result = await QuestionService.findQuestionByID(1n);
 			expect(result).toEqual({
 				id: prismaQuestion.id,
-				storyID: prismaQuestion.story_id,
+				story_id: prismaQuestion.story_id,
 				title: prismaQuestion.title,
 				content: prismaQuestion.content,
 				answer: prismaQuestion.answer,
@@ -48,14 +49,14 @@ describe("QuestionService", () => {
 
 	describe("createQuestion", () => {
 		it("title がない時はエラーを返す", async () => {
-			const result = await QuestionService.createQuestion({
+			const result = await QuestionService.createQuestion(ShortUUID.next(), {
 				content: "Some content",
 			});
 			expect(result).toEqual({ error: "Title is required" });
 		});
 
 		it("content がない時はエラーを返す", async () => {
-			const result = await QuestionService.createQuestion({
+			const result = await QuestionService.createQuestion(ShortUUID.next(), {
 				title: "Some title",
 			});
 			expect(result).toEqual({ error: "Content is required" });
@@ -67,14 +68,15 @@ describe("QuestionService", () => {
 				story_id: 1n,
 				title: "Valid title",
 				content: "Valid content",
-				answer: "",
+				answer: "Valid answer",
 				priority: 0,
 			};
 			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 			(fakeDb.question.create as any).mockResolvedValue(prismaQuestion);
-			const result = await QuestionService.createQuestion({
+			const result = await QuestionService.createQuestion(ShortUUID.next(), {
 				title: "Valid title",
 				content: "Valid content",
+				answer: "Valid answer",
 			});
 			expect(result).toEqual({
 				id: prismaQuestion.id,
