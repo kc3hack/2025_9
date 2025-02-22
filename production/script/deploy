@@ -4,7 +4,7 @@
 GHCR_USER=$1
 GHCR_TOKEN=$2
 
-cd $(dirname "$0")/../
+cd $(git rev-parse --show-toplevel)/production
 
 echo "[1/4] Login to GitHub Container Registry..."
 echo $GHCR_TOKEN | docker login ghcr.io -u $GHCR_USER --password-stdin
