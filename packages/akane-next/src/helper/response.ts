@@ -34,10 +34,13 @@ export function NotFoundResponse(lackingItem: string): Response {
 /**
  * 400 Bad RequestのResponseを返す
  *
+ * @param message - Bad Requestの理由 (空の場合:"Invalid request")
  * @returns {Response} 400 Bad RequestのResponse
  */
-export function BadRequestResponse(): Response {
-  return new Response("Bad Request", {
+export function BadRequestResponse(
+  message: string = "Invalid request"
+): Response {
+  return new Response(message, {
     status: 400,
   });
 }
