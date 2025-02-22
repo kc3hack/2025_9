@@ -9,8 +9,6 @@ cd $(dirname "$0")/../
 . ./script/use-env .env
 
 echo "[1/4] Login to GitHub Container Registry..."
-# docker login前にキーチェーンをアンロックする
-security unlock-keychain -p "$KEYCHAIN_PASSWORD"
 echo $GHCR_TOKEN | docker login ghcr.io -u $GHCR_USER --password-stdin
 
 echo "[2/4] Pulling images..."
