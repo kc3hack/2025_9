@@ -11,7 +11,7 @@ export default async function StoryInfoPage({
 	searchParams,
 }: {
 	params: Promise<{ id: bigint }>;
-	searchParams: { edit?: boolean };
+	searchParams: Promise<{ [edit: string]: string | string[] | undefined }>;
 }) {
 	const id = (await params).id;
 

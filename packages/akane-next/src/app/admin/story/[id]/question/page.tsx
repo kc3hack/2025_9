@@ -1,5 +1,7 @@
 import AdminHeader from "@/components/admin/header";
 import AdminStoryQuestionEditForm from "@/components/admin/story/question/form";
+import { firstOrSelf } from "@/helper/array";
+import { AsBigInt } from "@/helper/bigint";
 import { QuestionService } from "@/services/question";
 import { redirect } from "next/navigation";
 import { getQuestionFromFormData } from "../../util";
@@ -9,10 +11,12 @@ export default async function AdminStoryQuestionPage({
 	searchParams,
 }: {
 	params: Promise<{ id: bigint }>;
-	searchParams: { question_id?: bigint };
+	searchParams: Promise<{
+		[question_id: string]: string | string[] | undefined;
+	}>;
 }) {
 	const id = (await params).id;
-	const questionID = (await searchParams).question_id;
+	const questionID = AsBigInt(firstOrSelf((await searchParams).question_id));
 	const question =
 		questionID !== undefined
 			? ((await QuestionService.findQuestionByID(questionID)) ?? undefined)
