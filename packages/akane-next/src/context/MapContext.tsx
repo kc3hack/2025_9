@@ -11,7 +11,11 @@ interface MapContextProps {
 
 export const MapContext = createContext<MapContextProps | undefined>(undefined);
 
-export const MapProvider = ({ children }: { children: ReactNode }) => {
+export const MapProvider = ({
+    children
+}: Readonly<{
+    children: ReactNode;
+}>) => {
     const [map, setMap] = useState<mapboxgl.Map | null>(null);
     const [isMapLoaded, setIsMapLoaded] = useState(false);
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
