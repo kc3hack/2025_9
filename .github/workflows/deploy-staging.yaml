@@ -25,5 +25,5 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~/yaken/2025-09 && git pull
-            ~/yaken/2025-09/production/script/deploy
+            cd ~/yaken/2025_09 && git pull
+            ~/yaken/2025_09/production/script/deploy
