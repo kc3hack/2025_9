@@ -1,6 +1,8 @@
 name: "Deploy Staging Environment"
 on:
-  push:
+  workflow_run:
+    workflows:
+      - nginx-push-ghcr
 jobs:
   deploy:
     name: Auto Deploy via ssh
