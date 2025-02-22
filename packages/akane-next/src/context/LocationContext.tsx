@@ -9,7 +9,11 @@ interface LocationContextProps {
 
 export const LocationContext = createContext<LocationContextProps | undefined>(undefined);
 
-export const LocationProvider = ({ children }: { children: ReactNode }) => {
+export const LocationProvider = ({
+    children
+}: Readonly<{
+    children: ReactNode;
+}>) => {
     const [position, setPosition] = useState<GeolocationPosition | null>(null);
     const map = useMap();
 
