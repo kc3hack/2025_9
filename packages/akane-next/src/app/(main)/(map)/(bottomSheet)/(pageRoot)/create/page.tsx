@@ -52,7 +52,7 @@ function StoryCreateTop({
                     {/* ここに問い${index}を表示 */}
                     {nazos.map((nazo) => (
                         <HStack
-                            key={nazo.description}
+                            key={nazo.id}
                             borderWidth="1px"
                             borderRadius="lg"
                             p={2}
@@ -106,7 +106,6 @@ function QuestionPage({
     }[]>;
 }) {
     const map = useMap();
-    console.log(map);
     return (
         <Box>
             <Button onClick={() => setPageState("/")}>←戻る</Button>
