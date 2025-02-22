@@ -12,7 +12,7 @@ services:
     init: true
     command: ["npm", "run", "dev"]
     ports:
-      - "3000:3000"
+      - "3800:3000"
       - "5555:5555" # for prisma studio
     develop:
       watch:
