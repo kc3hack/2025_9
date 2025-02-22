@@ -8,7 +8,7 @@ GHCR_TOKEN=$3
 # PATHが通っていないので通しておく
 export PATH="/usr/local/bin:$PATH"
 
-cd $(dirname "$0")/../
+cd $(git rev-parse --show-toplevel)/production
 
 echo "[1/4] Login to GitHub Container Registry..."
 # docker login前にキーチェーンをアンロックする
