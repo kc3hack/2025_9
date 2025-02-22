@@ -26,6 +26,8 @@ services:
           path: package.json
     environment:
       DATABASE_URL: "mysql://root@db:3306/akane"
+    depends_on:
+      - db
 
   nginx:
     build:
@@ -34,7 +36,6 @@ services:
     ports:
       - "443:443"
     depends_on:
-      - db
       - akane-next
 
   db:
