@@ -55,7 +55,7 @@ WORKDIR /app
 
 COPY --chown=node:node --from=build /app/.next ./.next
 COPY --chown=node:node --from=build /app/public ./public
-COPY --chown=node:node --from=build /app/next.config.js ./next.config.js
+COPY --chown=node:node --from=build /app/next.config.ts ./next.config.ts
 COPY --chown=node:node --from=build /app/package.json ./package.json
 COPY --chown=node:node --from=build /app/node_modules ./node_modules
 
