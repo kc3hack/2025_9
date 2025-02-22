@@ -19,7 +19,7 @@ WORKDIR /app
 
 COPY --chown=node:node package.json package-lock.json ./
 
-RUN npm ci
+RUN npm install
 
 #
 # 開発環境向け
