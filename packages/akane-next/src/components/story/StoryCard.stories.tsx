@@ -1,18 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { StoryCard } from "./StoryCard";
-import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
+// import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 
 const meta: Meta<typeof StoryCard> = {
   title: "story/StoryCard",
   component: StoryCard,
   tags: ["story", "StoryCard"],
-  decorators: [
-    (Story) => (
-      <ChakraProvider value={defaultSystem}>
-        <Story />
-      </ChakraProvider>
-    ),
-  ],
   parameters: {
     layout: "centered",
   },
