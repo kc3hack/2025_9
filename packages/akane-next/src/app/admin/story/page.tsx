@@ -2,6 +2,8 @@ import AdminHeader from "@/components/admin/header";
 import { StoryService } from "@/services/story";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminStoryPage() {
 	const data = [
 		...(
