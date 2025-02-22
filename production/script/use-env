@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for kvp in $(< $1)
+do
+  if [[ "$kvp" = ^\s*$ ]] || [[ "$kvp" =~ ^# ]]; then
+    continue
+  fi
+  export $kvp
+done

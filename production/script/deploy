@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# PATHが通っていないので通しておく
+export PATH="/usr/local/bin:$PATH"
+
+cd $(dirname "$0")/../
+
+# .envファイルを読み込む
+. ./script/use-env .env
+
+echo "[1/4] Login to GitHub Container Registry..."
+# docker login前にキーチェーンをアンロックする
+security unlock-keychain -p "$KEYCHAIN_PASSWORD"
+echo $GHCR_TOKEN | docker login ghcr.io -u $GHCR_USER --password-stdin
+
+echo "[2/4] Pulling images..."
+docker compose pull
+
+echo "[3/4] Stopping containers..."
+docker compose down
+
+echo "[4/4] Restarting containers..."
+docker compose up -d

@@ -1,0 +1,23 @@
+services:
+  akane-next:
+    image: ghcr.io/kc3hack/2025_9/akane-next:latest
+    ports:
+      - "3000:3000"
+    restart: always
+
+  nginx:
+    image: ghcr.io/kc3hack/2025_9/akane-nginx:latest
+    ports:
+      - "8800:80"
+      - "8801:81"
+    restart: always
+
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: akane
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./tmp/mysql:/var/lib/mysql

@@ -5,6 +5,7 @@ on:
       - nginx-push-ghcr
     types:
       - completed
+  workflow_dispatch:
 jobs:
   deploy:
     name: Auto Deploy via ssh
@@ -22,4 +23,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: ~/yaken/akane/script/deploy
+          script: |
+            cd ~/yaken/2025-09 && git pull
+            ~/yaken/2025-09/production/script/deploy
