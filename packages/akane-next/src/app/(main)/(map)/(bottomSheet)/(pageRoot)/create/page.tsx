@@ -1,7 +1,6 @@
 "use client";
 import { Box, Button, Field, HStack, Input, Text, VStack } from "@chakra-ui/react";
 import { Dispatch, useState } from "react";
-import { useMap } from "@/hooks/MapHook";
 
 function StoryCreateTop({
     handleCreateQuestion,
@@ -105,7 +104,6 @@ function QuestionPage({
         };
     }[]>;
 }) {
-    const map = useMap();
     return (
         <Box>
             <Button onClick={() => setPageState("/")}>←戻る</Button>
