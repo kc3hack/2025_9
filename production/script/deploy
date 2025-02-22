@@ -1,9 +1,8 @@
 #!/bin/bash
 
 # このScriptの引数
-KEYCHAIN_PASSWORD=$1
-GHCR_USER=$2
-GHCR_TOKEN=$3
+GHCR_USER=$1
+GHCR_TOKEN=$2
 
 cd $(dirname "$0")/../
 
