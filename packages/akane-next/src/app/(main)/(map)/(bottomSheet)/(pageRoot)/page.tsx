@@ -9,10 +9,10 @@ export default function TopPage() {
                 {[...Array(50)].map((_, i) => (
                     <Link
                         key={i}
-                        href={`/nazo/${i}`}
+                        href={`/story/${i}`}
                     >
                         <Text color={"blue.500"}>
-                            Item {i}
+                            ストーリー {i}
                         </Text>
                     </Link>
                 ))}

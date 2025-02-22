@@ -4,14 +4,14 @@ export default async function NazoDetail({
     params
 }: {
     params: {
-        nazo_id: Promise<string>;
+        story_id: Promise<string>;
     };
 }) {
-    const { nazo_id } = await params;
+    const { story_id } = await params;
     return (
         <div>
             <Text textStyle="2xl">謎解き詳細</Text>
-            <Text>{nazo_id}</Text>
+            <Text>{story_id}</Text>
         </div>
     );
 }
