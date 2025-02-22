@@ -184,7 +184,7 @@ export default function NazoCreatePage() {
             latitude: 34,
             radius: 100, //m
         }
-    }]);
+    }]);  // TODO: 型は後でちゃんと書く @/types とかに
     
     if (pageState === "/") {
         return (
