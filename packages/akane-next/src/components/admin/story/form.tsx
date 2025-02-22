@@ -19,7 +19,7 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 					id="story-title"
 					name="story-title"
 					placeholder="なんもわからん関西の謎"
-					value={story?.title}
+					defaultValue={story?.title}
 					required
 				/>
 			</div>
@@ -33,7 +33,7 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 					id="story-content"
 					name="story-content"
 					rows={3}
-					value={story?.content}
+					defaultValue={story?.content}
 					required
 				/>
 			</div>
@@ -48,7 +48,7 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 					id="story-image_url"
 					name="story-image_url"
 					placeholder="https://example.com/image.jpg"
-					value={story?.image_url?.toString()}
+					defaultValue={story?.image_url?.toString()}
 				/>
 			</div>
 
@@ -60,7 +60,7 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 					className="form-select"
 					id="story-type"
 					name="story-type"
-					value={story?.type}
+					defaultValue={story?.type}
 					required
 				>
 					<option value="long">長編</option>
@@ -76,7 +76,7 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 					className="form-select"
 					id="story-status"
 					name="story-status"
-					value={story?.status}
+					defaultValue={story?.status}
 					required
 				>
 					<option value="draft">下書き</option>
@@ -92,7 +92,7 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 					className="form-select"
 					id="story-difficulty"
 					name="story-difficulty"
-					value={story?.difficulty}
+					defaultValue={story?.difficulty}
 					required
 				>
 					<option value="1">★☆☆☆☆</option>
@@ -113,7 +113,7 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 					id="story-estimated_time"
 					name="story-estimated_time"
 					placeholder="60"
-					value={story?.estimated_time?.toString()}
+					defaultValue={story?.estimated_time?.toString()}
 				/>
 			</div>
 
@@ -127,7 +127,7 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 					id="story-area"
 					name="story-area"
 					placeholder="関西"
-					value={story?.area}
+					defaultValue={story?.area}
 					required
 				/>
 				<div className="form-text">
@@ -141,11 +141,12 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 				</label>
 				<input
 					type="number"
+					step="0.000000000000001"
 					className="form-control"
 					id="story-latitude"
 					name="story-latitude"
 					placeholder="34.985990520884535"
-					value={story?.latitude?.toString()}
+					defaultValue={story?.latitude?.toString()}
 					required
 				/>
 				<div className="form-text">
@@ -159,11 +160,12 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 				</label>
 				<input
 					type="number"
+					step="0.000000000000001"
 					className="form-control"
 					id="story-longitude"
 					name="story-longitude"
 					placeholder="135.75889251509875"
-					value={story?.longitude?.toString()}
+					defaultValue={story?.longitude?.toString()}
 					required
 				/>
 				<div className="form-text">
@@ -181,7 +183,7 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 					id="story-radius"
 					name="story-radius"
 					placeholder="100"
-					value={story?.radius?.toString()}
+					defaultValue={story?.radius?.toString()}
 					required
 				/>
 			</div>
@@ -196,7 +198,7 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 					id="story-pin_class"
 					name="story-pin_class"
 					placeholder="fas fa-map-marker-alt"
-					value={story?.pin_class?.toString()}
+					defaultValue={story?.pin_class?.toString()}
 				/>
 				<div className="form-text">
 					ピンのアイコンクラスを入力してください。
@@ -204,7 +206,7 @@ export default function AdminStoryEditForm({ story, onSubmitted }: Props) {
 			</div>
 
 			<button type="submit" className="btn btn-primary">
-				作成
+				{story ? "更新" : "作成"}
 			</button>
 		</form>
 	);
