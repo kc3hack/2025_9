@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
   }: { title: string; content: string; image_url: string | null } =
     await request.json();
   if (!title || !content) {
-    return BadRequestResponse();
+    return BadRequestResponse("Title and Content are required");
   }
   const hint = await HintService.createHint({
     title: title,
