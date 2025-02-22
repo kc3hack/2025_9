@@ -1,12 +1,15 @@
 "use client";
 import { useBottomSheet } from "@/hooks/BottomSheetHook";
-import { ReactNode } from "react";
 import { BottomSheet } from "react-spring-bottom-sheet";
 import { Box } from "@chakra-ui/react";
 
 import "react-spring-bottom-sheet/dist/style.css";
 
-export default function BottomSheetLayout({ children }: { children: ReactNode }) {
+export default function BottomSheetLayout({
+    children
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
     const bottomSheetRef = useBottomSheet().bottomSheetRef;
     return (
         <Box

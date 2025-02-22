@@ -5,9 +5,9 @@ import { Box } from "@chakra-ui/react";
 
 export default function MainLayout({
     children,
-}: {
+}: Readonly<{
     children: React.ReactNode;
-}) {
+}>) {
     return (
         <MapProvider>
             <LocationProvider>

@@ -1,6 +1,6 @@
 import { Text } from "@chakra-ui/react";
 
-export default async function NazoDetail({
+export default async function StoryDetail({
     params
 }: {
     params: Promise<{

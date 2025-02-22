@@ -8,7 +8,11 @@ interface BottomSheetContextProps {
 
 export const BottomSheetContext = createContext<BottomSheetContextProps | undefined>(undefined);
 
-export const BottomSheetProvider = ({ children }: { children: ReactNode }) => {
+export const BottomSheetProvider = ({
+    children
+}: Readonly<{
+    children: ReactNode;
+}>) => {
     const bottomSheetRef = useRef<BottomSheetRef | null>(null);
 
     return (

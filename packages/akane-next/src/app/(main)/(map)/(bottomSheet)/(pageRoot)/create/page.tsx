@@ -185,18 +185,26 @@ export default function NazoCreatePage() {
     
     if (pageState === "/") {
         return (
-            <StoryCreateTop
-                handleCreateQuestion={() => setPageState("/create/question")}
-                nazos={questions}
-            />
+            <>
+                <StoryCreateTop
+                    handleCreateQuestion={() => setPageState("/create/question")}
+                    nazos={questions}
+                />
+            </>
         );
     } else if (pageState === "/create/question") {
         return (
-            <QuestionPage
-                setPageState={setPageState}
-                questions={questions}
-                setQuestions={setQuestions}
-            />
+            <>
+                <QuestionPage
+                    setPageState={setPageState}
+                    questions={questions}
+                    setQuestions={setQuestions}
+                />
+            </>
+        );
+    } else {
+        return (
+            <Text>404</Text>
         );
     }
 }
