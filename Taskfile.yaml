@@ -34,6 +34,16 @@ tasks:
     cmds:
       - docker compose build
 
+  test:
+    desc: テストを実行します
+    dir: packages/akane-next
+    deps:
+      - test:db:migrate
+    cmds:
+      - npm run test
+    env:
+      DATABASE_URL: "mysql://root@127.0.0.1:3306/akane_test"
+
   setup:
     desc: 開発環境をセットアップします
     deps:
@@ -72,3 +82,10 @@ tasks:
       - npx prisma {{ .CLI_ARGS }}
     env:
       DATABASE_URL: "mysql://root@localhost:3306/akane"
+
+  test:db:migrate:
+    desc: データベースのマイグレーションを実行します
+    cmds:
+      - npx prisma migrate dev --schema packages/akane-next/prisma/schema.prisma
+    env:
+      DATABASE_URL: "mysql://root@127.0.0.1:3306/akane_test"
