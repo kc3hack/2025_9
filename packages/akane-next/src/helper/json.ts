@@ -7,17 +7,15 @@
  * @returns JSON 文字列
  */
 export const json = (param: object): string => {
-  return JSON.stringify(
-    param,
-    (_, value) => (typeof value === "bigint" ? value.toString() : value)
+  return JSON.stringify(param, (_, value) =>
+    typeof value === "bigint" ? value.toString() : value
   );
 };
-
 
 // 名前が思いつかなかったので、とりあえず SafeJSON としておく
 const SafeJSON = {
   ...JSON,
   stringify: json,
-}
+};
 
 export default SafeJSON;
