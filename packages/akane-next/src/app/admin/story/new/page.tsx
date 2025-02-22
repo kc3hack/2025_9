@@ -9,14 +9,9 @@ export default function AdminStoryNewPage() {
 	const onSubmit = async (form: FormData) => {
 		"use server";
 		const data = getStoryFromFormData(form);
-		try {
-			const result = await StoryService.createStory(data);
-			console.log(result);
-			redirect(`/admin/story/${result.id}`);
-		} catch (err) {
-			console.error(err);
-			redirect("/admin/story/new");
-		}
+
+		const result = await StoryService.createStory(data);
+		redirect(`/admin/story/${result.id.toString()}`);
 	};
 
 	return (
