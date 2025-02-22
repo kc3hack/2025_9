@@ -15,13 +15,14 @@ export default function BottomSheetLayout({ children }: { children: ReactNode })
             <BottomSheet
                 open
                 blocking={false}
+                snapPoints={({ maxHeight }) => [maxHeight * 0.5, maxHeight * 0.7]}
+                defaultSnap={({ lastSnap, snapPoints }) =>
+                    lastSnap ?? Math.max(...snapPoints)
+                }
                 ref={bottomSheetRef}
             >
                 <Box
-                    bg="white"
-                    borderTopRadius="20px"
                     p="4"
-                    minH={{ base: "40vh", md: "100vh" }}
                 >
                     {children}
                 </Box>
