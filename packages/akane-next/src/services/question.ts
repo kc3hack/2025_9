@@ -1,3 +1,4 @@
+import { createUUID } from "@/helper/uuid";
 import type { Question } from "@/model/question";
 import { prisma } from "@/prisma/client";
 import type { Question as PrismaQuestion } from "@prisma/client";
@@ -32,24 +33,51 @@ class Service {
 		return this.toQuestionDTO(data);
 	}
 
-	async createQuestion({
-		title,
-		content,
-	}: Partial<Question>): Promise<Question | { error: string }> {
-		if (!title) return { error: "Title is required" };
-		if (!content) return { error: "Content is required" };
+	async findQuestionsByStoryID(storyID: bigint): Promise<Question[]> {
+		const data = await this.db.question.findMany({
+			where: {
+				story_id: storyID,
+			},
+		});
+		return data.map((question) => this.toQuestionDTO(question));
+	}
+
+	async createQuestion(
+		storyID: bigint,
+		question: Partial<Question>,
+	): Promise<Question | { error: string }> {
+		if (!question.title) return { error: "Title is required" };
+		if (!question.content) return { error: "Content is required" };
+		if (!question.answer) return { error: "Answer is required" };
+
+		const id = await createUUID();
 
 		const data = await this.db.question.create({
 			data: {
-				id: 1n,
-				story_id: 1n,
-				title: title,
-				content: content,
-				answer: "",
-				priority: 0,
+				id: id,
+				story_id: storyID,
+				title: question.title,
+				content: question.content,
+				answer: question.answer,
+				priority: question.priority ?? 0,
 			},
 		});
 
+		return this.toQuestionDTO(data);
+	}
+
+	async updateQuestion(question: Partial<Question>): Promise<Question> {
+		const data = await this.db.question.update({
+			where: {
+				id: question.id,
+			},
+			data: {
+				title: question.title,
+				content: question.content,
+				answer: question.answer,
+				priority: question.priority,
+			},
+		});
 		return this.toQuestionDTO(data);
 	}
 }
