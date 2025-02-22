@@ -17,7 +17,9 @@ ENV NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=${MAPBOX_ACCESS_TOKEN}
 USER node
 WORKDIR /app
 
+RUN mkdir -p /app/packages/akane-next
 COPY --chown=node:node package.json package-lock.json ./
+COPY --chown=node:node packages/akane-next/package.json ./packages/akane-next/
 
 RUN npm ci
 
@@ -29,8 +31,9 @@ FROM base AS development
 USER node
 WORKDIR /app
 
-COPY --chown=node:node . .
+COPY --chown=node:node ./packages/akane-next ./packages/akane-next
 COPY --from=base --chown=node:node /app/node_modules ./node_modules
+WORKDIR /app/packages/akane-next
 
 RUN npm run prisma:generate
 
@@ -44,8 +47,9 @@ FROM base AS build
 RUN mkdir -p /app/.next
 
 WORKDIR /app
-COPY --chown=node:node . .
+COPY --chown=node:node ./packages/akane-next ./packages/akane-next
 COPY --from=base --chown=node:node /app/node_modules ./node_modules
+WORKDIR /app/packages/akane-next
 
 RUN npm run build
 
@@ -55,12 +59,12 @@ RUN npm run build
 FROM base AS production
 
 USER node
-WORKDIR /app
+WORKDIR /app/packages/akane-next
 
-COPY --chown=node:node --from=build /app/.next ./.next
-COPY --chown=node:node --from=build /app/public ./public
-COPY --chown=node:node --from=build /app/next.config.ts ./next.config.ts
-COPY --chown=node:node --from=build /app/package.json ./package.json
-COPY --chown=node:node --from=build /app/node_modules ./node_modules
+COPY --chown=node:node --from=build /app/packages/akane-next/.next ./.next
+COPY --chown=node:node --from=build /app/packages/akane-next/public ./public
+COPY --chown=node:node --from=build /app/packages/akane-next/next.config.ts ./next.config.ts
+COPY --chown=node:node --from=build /app/packages/akane-next/package.json ./package.json
+COPY --chown=node:node --from=build /app/node_modules ../../node_modules
 
 CMD ["npm", "start"]
