@@ -3,10 +3,10 @@ import { Text } from "@chakra-ui/react";
 export default async function NazoChallengePage({
     params,
 }: {
-    params: {
-        story_id: Promise<string>;
-        nazo_id: Promise<string>;
-    };
+    params: Promise<{
+        story_id: string;
+        nazo_id: string;
+    }>;
 }) {
     const { story_id, nazo_id } = await params;
     // /story/1/challenge/1
