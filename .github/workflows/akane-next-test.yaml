@@ -88,5 +88,6 @@ jobs:
           provenance: false
         env:
           NODE_ENV: production
+          DATABASE_URL: "mysql://root@db:3306/akane"
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
