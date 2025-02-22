@@ -4,6 +4,8 @@ import { Provider } from "@/components/ui/provider";
 import { WithApolloProvider } from "@/graphql/provider";
 import { LocationProvider } from "@/context/LocationContext";
 import { MapProvider } from "@/context/MapContext";
+import { BottomSheetProvider } from "@/context/BottomSheetContext";
+import { Box } from "@chakra-ui/react";
 
 
 export const metadata: Metadata = {
@@ -23,7 +25,16 @@ export default function RootLayout({
           <Provider>
             <MapProvider>
               <LocationProvider>
-                {children}
+                <BottomSheetProvider>
+                  <Box
+                    pos="relative"
+                    h="100vh"
+                    w="100vw"
+                    overflow="hidden"
+                  >
+                    {children}
+                  </Box>
+                </BottomSheetProvider>
               </LocationProvider>
             </MapProvider>
           </Provider>
