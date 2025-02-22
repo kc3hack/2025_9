@@ -18,3 +18,14 @@ export const getStoryFromFormData = (data: FormData) => {
 		pin_class: data.get("story-pin_class")?.toString() ?? null,
 	};
 };
+
+export const getQuestionFromFormData = (data: FormData) => {
+	return {
+		storyID: BigInt(data.get("question-story-id")?.toString() ?? "0"),
+		title: data.get("question-title")?.toString() ?? "",
+		content: data.get("question-content")?.toString() ?? "",
+		answer: data.get("question-answer")?.toString() ?? "",
+		image_url: data.get("question-image_url")?.toString() ?? null,
+		priority: Number.parseInt(data.get("question-priority")?.toString() ?? "0"),
+	};
+};
