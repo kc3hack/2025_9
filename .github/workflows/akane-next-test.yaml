@@ -89,7 +89,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           provenance: false
-          args: |
+          build-args: |
             DATABASE_URL=mysql://root@db:3306/akane
             MAPBOX_MAP_STYLE=mapbox://styles/nenrin/cm77whskd00sl01reh909h23j
             MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}
