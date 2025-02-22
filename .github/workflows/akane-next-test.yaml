@@ -32,6 +32,8 @@ jobs:
           node-version: "22"
       - name: Install dependencies
         run: npm ci -w packages/akane-next
+      - name: Generate Prisma
+        run: npm run prisma:generate -w packages/akane-next
       - name: Type check
         run: npm run typecheck -w packages/akane-next
       - name: Lint
