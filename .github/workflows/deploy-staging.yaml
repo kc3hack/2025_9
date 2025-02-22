@@ -25,4 +25,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/yaken/2025_9 && git pull
-            . ~/yaken/2025_9/production/script/deploy
+            . ~/yaken/2025_9/production/script/deploy ${{ secrets.KEYCHAIN_PASSWORD }} ${{ secrets.GHCR_USER }} ${{ secrets.GHCR_TOKEN }}
