@@ -8,6 +8,21 @@ const meta: Meta<typeof StoryCard> = {
   parameters: {
     layout: "centered",
   },
+  argTypes: {
+    status: {
+      options: [
+        "in_progress",
+        "started",
+        "cleared",
+        "public",
+        "url_only",
+        "private",
+      ],
+      control: {
+        type: "select",
+      },
+    },
+  },
 };
 export default meta;
 
@@ -17,7 +32,6 @@ export const Default: Story = {
   args: {
     background: "#f4f4f5",
     cardBorderWidth: "thick",
-    cardBorderColor: "#2563eb",
     cardRadius: "2rem",
     imageURL:
       "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
@@ -27,6 +41,6 @@ export const Default: Story = {
     title: "タイトル",
     size: "150px",
     separatorColor: "#49454F",
-    status: "現在途中",
+    status: "in_progress",
   },
 };
