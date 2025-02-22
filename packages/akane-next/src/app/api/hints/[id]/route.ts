@@ -26,6 +26,8 @@ export async function PUT(
   }: { title: string; content: string; image_url: string | null } =
     await request.json();
   // PATCHとしても使えるように、titleやcontentがない場合でも更新できるようにしている
+  // フィールドがない場合にはそのフィールドはundefinedとなり、更新されない
+  // また、updateHint側で空文字列を取り除くので、空文字列だけが渡された場合更新されない
   const hint = await HintService.updateHint({
     id: BigInt(id),
     title: title,

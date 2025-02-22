@@ -2,6 +2,7 @@ import prisma from "../prisma/client";
 import type { PrismaClient } from "@prisma/client";
 import { createUUID } from "@/helper/uuid";
 import { Hint } from "@/model/hint";
+import { FilterAndTrimEmptyStrings } from "@/helper/dataSanitizer";
 
 class Service {
   db: PrismaClient;
@@ -66,19 +67,33 @@ class Service {
     return this.toHintDTO(newHint);
   }
 
+  /**
+   * 指定されたhintを更新します。
+   *
+   * PUTメソッドおよびPATCHメソッドとして使用できます。
+   *
+   * 空文字列または空白のみの文字列が渡されたフィールドは更新されません。
+   *
+   * タイトルの前後にある空白は削除されます。
+   * 例: "   a   " → "a"
+   *
+   * @param hint 更新対象のhintデータ
+   * @returns {Hint} 更新後のhintデータ
+   */
   async updateHint(hint: {
     id: bigint;
     title: string;
     content: string;
     image_url: string | null;
   }): Promise<Hint> {
+    const validHintData: Partial<Hint> = FilterAndTrimEmptyStrings({
+      title: hint.title,
+      content: hint.content,
+      image_url: hint.image_url,
+    });
     const updatedHint = await prisma.hint.update({
       where: { id: hint.id },
-      data: {
-        title: hint.title,
-        content: hint.content,
-        image_url: hint.image_url,
-      },
+      data: validHintData,
     });
     return this.toHintDTO(updatedHint);
   }
