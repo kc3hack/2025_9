@@ -2,7 +2,7 @@ name: "Deploy Staging Environment"
 on:
   workflow_run:
     workflows:
-      - nginx-push-ghcr
+      - akane-next-test
     types:
       - completed
   workflow_dispatch:
@@ -25,4 +25,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/yaken/2025_9 && git pull
-            ~/yaken/2025_9/production/script/deploy
+            . ~/yaken/2025_9/production/script/deploy

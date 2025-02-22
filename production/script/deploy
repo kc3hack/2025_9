@@ -1,12 +1,14 @@
 #!/bin/bash
 
+# このScriptの引数
+KEYCHAIN_PASSWORD=$1
+GHCR_USER=$2
+GHCR_TOKEN=$3
+
 # PATHが通っていないので通しておく
 export PATH="/usr/local/bin:$PATH"
 
 cd $(dirname "$0")/../
-
-# .envファイルを読み込む
-. ./script/use-env .env
 
 echo "[1/4] Login to GitHub Container Registry..."
 # docker login前にキーチェーンをアンロックする
