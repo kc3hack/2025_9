@@ -7,6 +7,13 @@ import {
 } from "@/helper/response";
 import { ParseQueryParam } from "@/helper/parseQuery";
 
+/**
+ * (一応)requestの送り方：
+ * "domain/api/hints/?offset=5&limit=30"
+ *
+ * @param request
+ * @returns
+ */
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const limit = ParseQueryParam(searchParams.get("limit"));
@@ -29,7 +36,7 @@ export async function POST(request: NextRequest) {
   }: { title: string; content: string; image_url: string | null } =
     await request.json();
   if (!title || !content) {
-    return BadRequestResponse();
+    return BadRequestResponse("Title and Content are required");
   }
   const hint = await HintService.createHint({
     title: title,
