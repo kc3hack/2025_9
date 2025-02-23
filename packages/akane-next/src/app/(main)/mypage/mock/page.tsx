@@ -101,15 +101,11 @@ export default function StoryDetailClientPage() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [map, isMapLoaded]);
 
-	if (!position) {
-		return <div>位置情報を取得中です...</div>;
-	}
-
 	const storyWithDistance = {
 		...story,
 		distance: getDistanceByTwoPoints(
-			position.coords.latitude,
-			position.coords.longitude,
+			position?.coords.latitude ?? 135,
+			position?.coords.longitude ?? 35,
 			story.latitude,
 			story.longitude,
 		),
@@ -149,7 +145,7 @@ export default function StoryDetailClientPage() {
 						<Text textStyle="2xl">{storyWithDistance.title}</Text>
 					</HStack>
 				</HStack>
-				<Text marginLeft="7">{storyWithDistance.distance}m</Text>
+				<Text marginLeft="7">243m</Text>
 				<DataList.Root w="100%" orientation="horizontal">
 					<DataList.Item>
 						<DataList.ItemLabel>難易度</DataList.ItemLabel>
