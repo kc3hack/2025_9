@@ -12,7 +12,7 @@ export default function MainLayout({
 		<MapProvider>
 			<LocationProvider>
 				<BottomSheetProvider>
-					<Box pos="relative" h="100dvh" w="100vw" overflow="hidden">
+					<Box pos="relative" minH="100dvh" w="100vw" overflow="hidden">
 						{children}
 					</Box>
 				</BottomSheetProvider>

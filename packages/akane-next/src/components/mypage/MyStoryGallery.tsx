@@ -51,8 +51,8 @@ export default function MyStoryGallery({
 							background="#f4f4f5"
 							cardBorderWidth="thick"
 							cardRadius="2rem"
-							//↓一旦全てデフォルト画像を表示するようにしている
-							imageURL={treasure}
+							//↓image_urlがなかったらtreasureを表示
+							imageURL={story.image_url ?? treasure}
 							imageAlt={`Image for ${story.title}`}
 							imageSize={50}
 							link={`/story/${story.id}`}

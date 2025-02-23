@@ -46,7 +46,6 @@ export default function ProgressionStoryGallery({
 	stories,
 	page,
 }: StoryGalleryProps) {
-	console.log(stories);
 	return (
 		<Tabs.Content
 			value={tabValue}
@@ -64,7 +63,7 @@ export default function ProgressionStoryGallery({
 								background="#f4f4f5"
 								cardBorderWidth="thick"
 								cardRadius="2rem"
-								imageURL={treasure} // 一旦デフォルト画像を使用
+								imageURL={story.image_url ?? treasure} // 一旦デフォルト画像を使用
 								imageAlt={`Image for ${story.title}`}
 								imageSize={50}
 								link={`/story/${story.id}`}
