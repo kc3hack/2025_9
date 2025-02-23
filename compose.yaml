@@ -16,7 +16,7 @@ services:
       watch:
         - action: sync
           path: ./packages/akane-next
-          target: /app
+          target: /app/packages/akane-next
           ignore:
             - node_modules
             - .next
