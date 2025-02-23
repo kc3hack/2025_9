@@ -21,7 +21,7 @@ export default function HeaderQuestionLayout({
             {isDisplay && (
                 <HStack
                     pos="fixed"
-                    alignItems="space-between"
+                    justifyContent="space-between"
                     top={0}
                     left={0}
                     right={0}
