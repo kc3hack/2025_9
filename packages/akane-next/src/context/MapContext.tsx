@@ -7,13 +7,20 @@ interface MapContextProps {
     map: mapboxgl.Map | null;
     mapContainerRef: React.RefObject<HTMLDivElement | null>;
     isMapLoaded: boolean;
+    followMode: "mylocation" | "free";
+    setFollowMode: React.Dispatch<React.SetStateAction<"mylocation" | "free">>;
 }
 
 export const MapContext = createContext<MapContextProps | undefined>(undefined);
 
-export const MapProvider = ({ children }: { children: ReactNode }) => {
+export const MapProvider = ({
+    children
+}: Readonly<{
+    children: ReactNode;
+}>) => {
     const [map, setMap] = useState<mapboxgl.Map | null>(null);
     const [isMapLoaded, setIsMapLoaded] = useState(false);
+    const [followMode, setFollowMode] = useState<"mylocation" | "free">("free");
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -39,7 +46,13 @@ export const MapProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     return (
-        <MapContext.Provider value={{ map, mapContainerRef, isMapLoaded }}>
+        <MapContext.Provider value={{
+            map,
+            mapContainerRef,
+            isMapLoaded,
+            followMode,
+            setFollowMode,
+        }}>
             {children}
         </MapContext.Provider>
     );
