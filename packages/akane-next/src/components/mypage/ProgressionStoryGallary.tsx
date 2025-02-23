@@ -66,7 +66,7 @@ export default function ProgressionStoryGallery({
 								imageURL={story.image_url ?? treasure} // 一旦デフォルト画像を使用
 								imageAlt={`Image for ${story.title}`}
 								imageSize={50}
-								link={`/story/${story.id}`}
+								link="/mypage/mock"
 								size="150px"
 								status={
 									story.progression ? story.progression.status : "unknown"

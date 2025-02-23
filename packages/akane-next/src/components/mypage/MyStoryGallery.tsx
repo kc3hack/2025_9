@@ -55,7 +55,7 @@ export default function MyStoryGallery({
 							imageURL={story.image_url ?? treasure}
 							imageAlt={`Image for ${story.title}`}
 							imageSize={50}
-							link={`/story/${story.id}`}
+							link="mypage/mock"
 							size="150px"
 							status={story.status}
 						/>

@@ -225,7 +225,7 @@ export default async function MyPage() {
 			updated_at: new Date(),
 		},
 	];
-	const name = "名前";
+	const name = "小鳥遊";
 	return (
 		<div>
 			<Box
@@ -245,11 +245,16 @@ export default async function MyPage() {
 								border="none"
 								bgColor="#EADDFF"
 							>
-								<Box margin="5">
+								{/* <Box margin="5">
 									<Avatar.Fallback fontSize="6xl" name={name} color="#6750A4" />
-								</Box>
+								</Box> */}
 								{/* アイコン画像 */}
-								{/* <Avatar.Image src={AvatarIconURL} /> */}
+								<Avatar.Image
+									src={
+										"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj0GPEdZjqR4WiboG9zP_YzmedSFqzfAaW_9X8psW00QqTjofeWGmlhiMucISVbPaUJYfIUpuSBKhU91nypKfIIfH6dAJo1I497Pak3lfduCn7KQcO1eTTvGt3s6_Dd1A1QwJx4xyA2HUoH/s1600/nigaoe_carolus_fridericus_gauss.png"
+									}
+									boxSize="32"
+								/>
 							</Avatar.Root>
 						</AvatarGroup>
 					</Box>
