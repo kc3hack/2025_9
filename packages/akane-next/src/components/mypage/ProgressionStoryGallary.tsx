@@ -1,4 +1,3 @@
-import treasure from "@/../public/treasure_map.png";
 import { Tabs } from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
 import type { StaticImageData } from "next/image";
@@ -46,6 +45,7 @@ export default function ProgressionStoryGallery({
 	stories,
 	page,
 }: StoryGalleryProps) {
+	const treasure = "/treasure_map.png";
 	return (
 		<Tabs.Content
 			value={tabValue}
