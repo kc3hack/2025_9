@@ -1,8 +1,8 @@
 import { FilterAndTrimEmptyStrings } from "@/helper/dataSanitizer";
 import { createUUID } from "@/helper/uuid";
 import type { Hint } from "@/model/hint";
+import prisma from "@/prisma/client";
 import type { PrismaClient } from "@prisma/client";
-import prisma from "../prisma/client";
 
 class Service {
 	db: PrismaClient;
