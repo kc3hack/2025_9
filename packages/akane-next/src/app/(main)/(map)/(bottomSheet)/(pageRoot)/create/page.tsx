@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Field, HStack, Input, Text, IconButton, Textarea, Flex, VStack, StackProps } from "@chakra-ui/react";
+import { Box, Button, Field, Input, Text, IconButton, Textarea, Flex, VStack } from "@chakra-ui/react";
 import { Dispatch, useState } from "react";
 import {
   FileUploadRoot,
