@@ -55,4 +55,14 @@ describe("createRandomFloatInRange", () => {
 		expect(results.every((result) => result >= 0)).toBe(true);
 		expect(results.every((result) => result <= 100)).toBe(true);
 	});
+
+	it("負の数でもランダムに小数を生成できる", () => {
+		const tests = Array.from({ length: 10 });
+		const results = tests.map(() =>
+			createRandomIntegerInRange({ min: -100, max: 100 }),
+		);
+		expect(results.every((result) => typeof result === "number")).toBe(true);
+		expect(results.every((result) => result >= -100)).toBe(true);
+		expect(results.every((result) => result <= 100)).toBe(true);
+	});
 });
