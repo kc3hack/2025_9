@@ -25,8 +25,10 @@ import { IoMdFlag, IoMdPin } from "react-icons/io";
 
 export default function StoryDetailClientPage({
 	story,
+	firstQuestionId,
 }: {
 	story: Story;
+	firstQuestionId: bigint;
 }) {
 	const { map, isMapLoaded } = useMap();
 	const { position } = useLocation();
@@ -183,7 +185,7 @@ export default function StoryDetailClientPage({
 				</DataList.Root>
 				<Flex w="100%" justifyContent="center" alignItems="center">
 					<ButtonGroup size="sm">
-						<Link href={`/story/${storyWithDistance.id}/challenge/0`}>
+						<Link href={`/story/${storyWithDistance.id}/challenge/${firstQuestionId.toString()}`}>
 							<Button colorPalette="blue" p={1} size={"sm"}>
 								<IoMdFlag />
 								<Text fontWeight={"bold"} textStyle={"sm"}>
