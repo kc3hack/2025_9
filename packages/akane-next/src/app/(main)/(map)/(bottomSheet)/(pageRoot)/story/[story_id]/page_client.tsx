@@ -9,20 +9,21 @@ import { Story } from "@prisma/client";
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import { IoMdFlag, IoMdPin } from "react-icons/io";
+import * as turf from '@turf/turf';
 
 export default function StoryDetailClientPage({
     story
 }: {
     story: Story;
 }) {
-    const { map } = useMap();
+    const { map, isMapLoaded } = useMap();
     const { position } = useLocation();
     const { setSnap, snapPoints } = useBottomSheet();
 
     if (map) {
         map.flyTo({
-            center: [story.longitude, story.latitude - 0.0001],
-            zoom: 20,
+            center: [story.longitude, story.latitude - 0.002],
+            zoom: 16,
             duration: 2000,
         });
     }
@@ -32,18 +33,46 @@ export default function StoryDetailClientPage({
     }, []);
 
     useEffect(() => {
-        if (!map) {
+        if (!map || !isMapLoaded) {
             return;
         }
         const marker = new mapboxgl.Marker({ color: story.type === "normal"? "var(--chakra-colors-green-500)" : "var(--chakra-colors-yellow-400)" })
             .setLngLat([story.longitude, story.latitude])
             .addTo(map)
             .setPopup(new mapboxgl.Popup().setHTML('<h1>Hello, world!</h1>'));
+        // story.radius(メートル単位)を使って、円を描画する turfで
+        const circle = turf.circle(
+            [
+                story.longitude,
+                story.latitude
+            ],
+            story.radius,
+            {
+                steps: 100,
+                units: 'meters'
+            }
+        );
+        map.addSource('circle', {
+            type: 'geojson',
+            data: circle,
+        });
+        map.addLayer({
+            id: 'circle',
+            type: 'fill',
+            source: 'circle',
+            layout: {},
+            paint: {
+                'fill-color': "#4169e1",
+                'fill-opacity': 0.5,
+            },
+        });
         return () => {
             marker.remove();
+            map.removeLayer('circle');
+            map.removeSource('circle');
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [map]);
+    }, [map, isMapLoaded]);
 
 
     if (!position) {

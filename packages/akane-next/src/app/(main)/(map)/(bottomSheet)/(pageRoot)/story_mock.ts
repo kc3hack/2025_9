@@ -11,7 +11,7 @@ export const stories: Story[] = [...Array(50)].map((_, i) => ({
     difficulty: 0,
     estimated_time: "10min",
     area: "東京都",
-    radius: 100,
+    radius: 200,
     longitude: 139.767052 + i * 0.0001,
     latitude: 35.681167 + i * 0.0001,
     pin_class: "normal",
