@@ -14,7 +14,7 @@ export default function MainLayout({
                 <BottomSheetProvider>
                     <Box
                         pos="relative"
-                        h="100vh"
+                        h="100dvh"
                         w="100vw"
                         overflow="hidden"
                     >

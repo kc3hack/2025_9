@@ -1,6 +1,5 @@
 "use client";
 
-import { useLocation } from "@/hooks/LocationHook";
 import { useMap } from "@/hooks/MapHook";
 import { Link, Text } from "@chakra-ui/react";
 import { Story } from "@prisma/client";
@@ -12,16 +11,14 @@ export default function StoryDetailClientPage({
 }: {
     story: Story;
 }) {
-    
-    const { position } = useLocation();
     const { map } = useMap();
 
 
-    if (map && position) {
+    if (map) {
         map.flyTo({
             center: [story.longitude, story.latitude],
             zoom: 20,
-            duration: 1000,
+            duration: 2000,
         });
     }
 
