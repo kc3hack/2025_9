@@ -29,14 +29,23 @@ export default function BottomSheetLayout({
                     <Drawer.Content
                         style={{
                             position: "fixed",
+                            display: "flex",
+                            flexDirection: "column",
+                            height: "calc(100% - 6rem)",
+                            width: "100%",
+                            margin: "6rem 6rem 0 0",
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            outline: "none",
                             inset: 0,
                             backgroundColor: "#fff",
                             boxShadow: "0px -2px 4px rgba(0, 0, 0, 0.1)",
                             borderRadius: "2rem 2rem 0 0",
                         }}>
                         <Drawer.Title></Drawer.Title>
-                        <Drawer.Handle style={{ width: "10rem", height: ".5rem", margin: "1rem auto", backgroundColor: "#e0e0e0" }}/>
-                        <Box padding={4}>
+                        <Drawer.Handle style={{ width: "10rem", height: "1rem", margin: "1rem auto", backgroundColor: "#e0e0e0" }}/>
+                        <Box padding={4} overflowY="auto" h="100%">
                             {children}
                         </Box>
                     </Drawer.Content>
