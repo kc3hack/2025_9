@@ -4,24 +4,19 @@ import { MapProvider } from "@/context/MapContext";
 import { Box } from "@chakra-ui/react";
 
 export default function MainLayout({
-    children,
+	children,
 }: Readonly<{
-    children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-    return (
-        <MapProvider>
-            <LocationProvider>
-                <BottomSheetProvider>
-                    <Box
-                        pos="relative"
-                        h="100dvh"
-                        w="100vw"
-                        overflow="hidden"
-                    >
-                        {children}
-                    </Box>
-                </BottomSheetProvider>
-            </LocationProvider>
-        </MapProvider>
-    );
+	return (
+		<MapProvider>
+			<LocationProvider>
+				<BottomSheetProvider>
+					<Box pos="relative" minH="100dvh" w="100vw" overflow="hidden">
+						{children}
+					</Box>
+				</BottomSheetProvider>
+			</LocationProvider>
+		</MapProvider>
+	);
 }
