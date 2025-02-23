@@ -76,5 +76,6 @@ COPY --chown=node:node --from=build /app/packages/akane-next/public ./public
 COPY --chown=node:node --from=build /app/packages/akane-next/next.config.ts ./next.config.ts
 COPY --chown=node:node --from=build /app/packages/akane-next/package.json ./package.json
 COPY --chown=node:node --from=build /app/node_modules ../../node_modules
+COPY --chown=node:node --from=build /app/packages/akane-next/prisma/schema.prisma ./prisma/schema.prisma
 
 CMD ["npm", "start"]

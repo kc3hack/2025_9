@@ -6,14 +6,19 @@ GHCR_TOKEN=$2
 
 cd $(git rev-parse --show-toplevel)/production
 
-echo "[1/4] Login to GitHub Container Registry..."
+echo "[1/5] Login to GitHub Container Registry..."
 echo $GHCR_TOKEN | docker login ghcr.io -u $GHCR_USER --password-stdin
 
-echo "[2/4] Pulling images..."
+echo "[2/5] Pulling images..."
 docker compose pull
 
-echo "[3/4] Stopping containers..."
+echo "[3/5] Stopping containers..."
 docker compose down
 
-echo "[4/4] Restarting containers..."
+echo "[4/5] Restarting containers..."
 docker compose up -d
+
+echo "[5/5] Migrating database..."
+docker compose exec npx prisma migrate dev --schema prisma/schema.prisma
+
+echo "[OK] Done!"
