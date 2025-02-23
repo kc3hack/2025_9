@@ -2,8 +2,8 @@
 
 import { useBottomSheet } from "@/hooks/BottomSheetHook";
 import { useHeaderQuestion } from "@/hooks/HeaderQuestionHook";
-import { Button, HStack, Icon, Input, Text, VStack } from "@chakra-ui/react";
-import { Hint, Question, QuestionHint, StoryProgression } from "@prisma/client";
+import { Button, Flex, HStack, Icon, Input, Text, VStack } from "@chakra-ui/react";
+import { Hint, Question, QuestionHint } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { IoMdLock, IoMdUnlock } from "react-icons/io";
 
@@ -14,7 +14,7 @@ export default function QuestionChallengeClientPage({
     question: Question;
     questionHints: (QuestionHint & Hint)[];
     nextQuestionId: bigint | null;
-    story_progression: StoryProgression;
+    //story_progression: StoryProgression;
 }) {
     const { setSnap, snapPoints} = useBottomSheet();
     const { setTitle, setContent, setIsDisplay } = useHeaderQuestion();
@@ -96,8 +96,10 @@ export default function QuestionChallengeClientPage({
                         )}
                     </Icon>
                     <VStack
+                        pos="relative"
                         alignItems="flex-start"
                         gap={2}
+                        w="100%"
                     >
                         {questionHintsUnlocked[index] ? (
                             <>
@@ -109,18 +111,49 @@ export default function QuestionChallengeClientPage({
                                 </Text>
                             </>
                         ) : (
-                            <Button
-                                colorPalette="yellow"
-                                p={4}
-                                mx="auto"
-                                onClick={() => {
-                                    const newQuestionHintsUnlocked = [...questionHintsUnlocked];
-                                    newQuestionHintsUnlocked[index] = true;
-                                    setQuestionHintsUnlocked(newQuestionHintsUnlocked);
-                                }}
-                            >
-                                ヒント{index}を見る
-                            </Button>
+                                <>
+                                    <VStack
+                                        w="100%"
+                                        alignItems="flex-start"
+                                        filter="auto"
+                                        blur="sm"
+                                        color="black"
+                                        zIndex={100}
+                                        gap={2}
+                                    >
+                                        <Text>
+                                            {hint.title}
+                                        </Text>
+                                        <Text>
+                                            {hint.content}
+                                        </Text>
+                                    </VStack>
+                                    <Flex
+                                        pos="absolute"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        w="100%"
+                                        h="100%"
+                                        top={0}
+                                        left={0}
+                                        right={0}
+                                        bottom={0}
+                                        backgroundColor="rgba(255, 255, 255, 0.2)"
+                                        zIndex={1000}
+                                    >
+                                        <Button
+                                            colorPalette="teal"
+                                            p={4}
+                                            onClick={() => {
+                                                const newQuestionHintsUnlocked = [...questionHintsUnlocked];
+                                                newQuestionHintsUnlocked[index] = true;
+                                                setQuestionHintsUnlocked(newQuestionHintsUnlocked);
+                                            }}
+                                        >
+                                            ヒント{index}を見る
+                                        </Button>
+                                    </Flex>
+                                </>
                         )}
                     </VStack>
                 </HStack>

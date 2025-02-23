@@ -1,6 +1,6 @@
 "use client";
 import { useHeaderQuestion } from "@/hooks/HeaderQuestionHook";
-import { Box, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, Text, VStack } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 export default function HeaderQuestionLayout({
@@ -22,17 +22,22 @@ export default function HeaderQuestionLayout({
                     p={4}
                     zIndex={1000}
                     boxShadow="0px 2px 4px rgba(0, 0, 0, 0.1)"
-                    borderRadius="2rem"
+                    borderRadius="lg"
                     borderWidth="1px"
                     borderColor="#e0e0e0"
                     backgroundColor="#fff"
                 >
-                    <Text
-                        fontSize={24}
-                        color="#000"
+                    <Flex
+                        justifyContent="center"
+                        alignItems="center"
                     >
-                        ?
-                    </Text>
+                        <Text
+                            fontSize={24}
+                            color="#000"
+                        >
+                            ?
+                        </Text>
+                    </Flex>
                     <VStack
                         justifyContent="flex-start"
                         alignItems="flex-start"
