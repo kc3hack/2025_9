@@ -4,6 +4,7 @@ import { getDistanceByTwoPoints } from "@/helper/location";
 import { useBottomSheet } from "@/hooks/BottomSheetHook";
 import { useLocation } from "@/hooks/LocationHook";
 import { useMap } from "@/hooks/MapHook";
+import { RatingGroup } from "@chakra-ui/react";
 import {
 	Button,
 	DataList,
@@ -27,7 +28,7 @@ export default function StoryDetailClientPage() {
 		user_account_id: BigInt("101255084679102467"),
 		title: "安土城の謎を解き明かせ",
 		content: "安土城に隠された謎を君の手で解き明かせ！",
-		image_url: "/treasure_map.png",
+		image_url: "/castle.png",
 		type: "long",
 		status: "public",
 		difficulty: 4,
@@ -150,7 +151,20 @@ export default function StoryDetailClientPage() {
 					<DataList.Item>
 						<DataList.ItemLabel>難易度</DataList.ItemLabel>
 						<DataList.ItemValue>
-							{storyWithDistance.difficulty}
+							<RatingGroup.Root
+								count={5}
+								value={storyWithDistance.difficulty}
+								colorPalette="yellow"
+							>
+								<RatingGroup.HiddenInput />
+								<RatingGroup.Control>
+									{Array.from({ length: 5 }).map((_, index) => (
+										<RatingGroup.Item key={index} index={index + 1}>
+											<RatingGroup.ItemIndicator />
+										</RatingGroup.Item>
+									))}
+								</RatingGroup.Control>
+							</RatingGroup.Root>
 						</DataList.ItemValue>
 					</DataList.Item>
 					<DataList.Item>
