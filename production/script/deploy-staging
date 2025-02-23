@@ -25,6 +25,6 @@ echo "[4/5] Restarting containers..."
 docker compose up -d
 
 echo "[5/5] Migrating database..."
-docker compose exec npx prisma migrate dev --schema prisma/schema.prisma
+docker compose exec akane-next npx prisma migrate dev --name init --schema prisma/schema.prisma
 
 echo "[OK] Done!"
