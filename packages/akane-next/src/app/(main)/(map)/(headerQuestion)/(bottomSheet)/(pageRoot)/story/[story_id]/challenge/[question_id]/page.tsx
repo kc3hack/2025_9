@@ -1,9 +1,9 @@
 import { Text } from "@chakra-ui/react";
-import { questionsGenerate } from "../../../../question_mock";
+import { getQuestionHints, questionsGenerate } from "../../../../question_mock";
 import QuestionChallengeClientPage from "./page_client";
-import { stories } from "../../../../story_mock";
 import { redirect } from "next/navigation";
 import { StoryProgressions_mockStoryProgression } from "../../../../story_progression_mock";
+import { getStories } from "../../../../story_mock";
 
 export default async function NazoChallengePage({
     params,
@@ -14,6 +14,7 @@ export default async function NazoChallengePage({
     }>;
 }) {
     const { story_id, question_id } = await params;
+    const stories = getStories();
     const story = stories.find((s) => s.id === BigInt(story_id));
     if (!story) {
         return <Text>ストーリーが見つかりませんでした</Text>;
@@ -24,6 +25,8 @@ export default async function NazoChallengePage({
         return <Text>問題が見つかりませんでした</Text>;
     }
     const nextQuestionId = questions.find((q) => q.priority === question.priority + 1)?.id ?? null;
+
+    const questionHints = getQuestionHints(BigInt(question_id));
 
     const story_progressions = StoryProgressions_mockStoryProgression(BigInt(story_id), BigInt(1));
     const story_progression = story_progressions.find((sp) => sp.story_id === BigInt(story_id));
@@ -42,6 +45,7 @@ export default async function NazoChallengePage({
     return (
         <QuestionChallengeClientPage
             question={question}
+            questionHints={questionHints}
             nextQuestionId={nextQuestionId}
             story_progression={story_progression}
         />
