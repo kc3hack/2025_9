@@ -4,6 +4,7 @@ import { useBottomSheet } from "@/hooks/BottomSheetHook";
 import { useHeaderQuestion } from "@/hooks/HeaderQuestionHook";
 import { Button, Flex, HStack, Icon, Input, Text, VStack } from "@chakra-ui/react";
 import { Hint, Question, QuestionHint } from "@prisma/client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoMdLock, IoMdUnlock } from "react-icons/io";
 
@@ -24,8 +25,10 @@ export default function QuestionChallengeClientPage({
         setStoryId,
         setNextQuestionId,
         setIsDisplay,
-        setIsDialogOpen,
-        setDialogType,
+        isCheckAnswerShow,
+        setIsCheckAnswerShow,
+        isCorrect,
+        setIsCorrect,
     } = useHeaderQuestion();
     useEffect(() => {
         setSnap(snapPoints[0]);
@@ -36,7 +39,7 @@ export default function QuestionChallengeClientPage({
         setNextQuestionId(nextQuestionId ?? 0n);
         return () => {
             setIsDisplay(false);
-            setIsDialogOpen(false);
+            setIsCheckAnswerShow(false);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -45,20 +48,48 @@ export default function QuestionChallengeClientPage({
     const [answer, setAnswer] = useState<string>("");
     const handleCheckAnswer = () => {
         if (answer === question.answer) {
-            setDialogType("correct");
+            setIsCorrect(true);
             setStoryId(question.story_id);
             if (nextQuestionId) {
                 setNextQuestionId(BigInt(nextQuestionId));
             }
-            setIsDialogOpen(true);
+            setIsCheckAnswerShow(true);
         } else {
-            setDialogType("incorrect");
-            setIsDialogOpen(true);
+            setIsCorrect(false);
+            setIsCheckAnswerShow(true);
             setTimeout(() => {
-                setIsDialogOpen(false);
+                setIsCheckAnswerShow(false);
             }, 1000 * 5);
         }
     };
+
+    if (isCheckAnswerShow && isCorrect) {
+        return (
+            <VStack
+                w="100%"
+                h="100%"
+                gap={4}
+            >
+                <Link href={`/story/${question.story_id}/challenge/${nextQuestionId}`}>
+                    <Button
+                        p={4}
+                        colorPalette="blue"
+                    >
+                        次の問題に進む
+                    </Button>
+                </Link>
+                <Link href={`/story/${question.story_id}`}>
+                    <Button
+                        p={4}
+                        colorPalette="blue"
+                        variant="outline"
+                    >
+                        ストーリーに戻る
+                    </Button>
+                </Link>
+            </VStack>
+        );
+    }
 
     return (<>
         
@@ -83,12 +114,13 @@ export default function QuestionChallengeClientPage({
                         placeholder="回答入力欄"
                         value={answer}
                         onChange={(e) => setAnswer(e.target.value)}
+                        disabled={isCheckAnswerShow}
                     />
                     <Button
                         p={4}
                         colorPalette="blue"
                         type="submit"
-                        disabled={answer === ""}
+                        disabled={answer === "" || isCheckAnswerShow}
                     >
                         回答！
                     </Button>

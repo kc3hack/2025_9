@@ -12,10 +12,10 @@ interface BottomSheetContextProps {
     setStoryId: React.Dispatch<React.SetStateAction<bigint>>;
     nextQuestionId: bigint;
     setNextQuestionId: React.Dispatch<React.SetStateAction<bigint>>;
-    isDialogOpen: boolean;
-    setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    dialogType: "correct" | "incorrect";
-    setDialogType: React.Dispatch<React.SetStateAction<"correct" | "incorrect">>;
+    isCheckAnswerShow: boolean;
+    setIsCheckAnswerShow: React.Dispatch<React.SetStateAction<boolean>>;
+    isCorrect: boolean;
+    setIsCorrect: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const HeaderQuestionContext = createContext<BottomSheetContextProps | undefined>(undefined);
@@ -30,8 +30,8 @@ export const HeaderQuestionProvider = ({
     const [content, setContent] = useState<string>("");
     const [storyId, setStoryId] = useState<bigint>(0n);
     const [nextQuestionId, setNextQuestionId] = useState<bigint>(0n);
-    const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-    const [dialogType, setDialogType] = useState<"correct" | "incorrect">("correct");
+    const [isCheckAnswerShow, setIsCheckAnswerShow] = useState<boolean>(false);
+    const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
     return (
         <HeaderQuestionContext.Provider
@@ -46,10 +46,10 @@ export const HeaderQuestionProvider = ({
                 setStoryId,
                 nextQuestionId,
                 setNextQuestionId,
-                isDialogOpen,
-                setIsDialogOpen,
-                dialogType,
-                setDialogType
+                isCheckAnswerShow,
+                setIsCheckAnswerShow,
+                isCorrect,
+                setIsCorrect
             }}>
             {children}
         </HeaderQuestionContext.Provider>
