@@ -120,7 +120,7 @@ export default function StoryDetailClientPage() {
 				borderRadius="lg"
 				borderColor="gray.200"
 				borderWidth={1}
-				p={4}
+				p={6}
 				bg="white"
 				gap={4}
 			>
