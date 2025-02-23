@@ -5,6 +5,8 @@ import React, { createContext, useState, useEffect, ReactNode } from 'react';
 interface LocationContextProps {
     position: GeolocationPosition | null;
     setPosition: React.Dispatch<React.SetStateAction<GeolocationPosition | null>>;
+    isFirstFlyLocation: boolean;
+    setIsFirstFlyLocation: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const LocationContext = createContext<LocationContextProps | undefined>(undefined);
@@ -15,6 +17,7 @@ export const LocationProvider = ({
     children: ReactNode;
 }>) => {
     const [position, setPosition] = useState<GeolocationPosition | null>(null);
+    const [isFirstFlyLocation, setIsFirstFlyLocation] = useState(true);
     const map = useMap();
 
     useEffect(() => {
@@ -62,7 +65,12 @@ export const LocationProvider = ({
     }, []);
 
     return (
-        <LocationContext.Provider value={{ position, setPosition }}>
+        <LocationContext.Provider value={{
+            position,
+            setPosition,
+            isFirstFlyLocation,
+            setIsFirstFlyLocation,
+        }}>
             {children}
         </LocationContext.Provider>
     );

@@ -14,7 +14,7 @@ export const BottomSheetProvider = ({
 }: Readonly<{
     children: ReactNode;
 }>) => {
-    const snapPoints = ['148px', '355px', 1];
+    const snapPoints = [.4, .7, .9];
     const [snap, setSnap] = useState<number | string | null>(snapPoints[0]);
 
     return (
