@@ -5,6 +5,16 @@ on:
     branches:
       - main
   workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - "packages/akane-next/**"
+      - ".github/workflows/push-and-deploy.yaml"
+      - "docker/akane-next/**"
+      - "compose.yaml"
 
 jobs:
   next-build-and-push:
@@ -51,7 +61,7 @@ jobs:
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          push: true
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           provenance: false
           build-args: |
             DATABASE_URL=mysql://root@db:3306/akane
@@ -102,13 +112,14 @@ jobs:
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          push: true
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           provenance: false
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   deploy:
     name: Auto Deploy as Staging Environment
     needs: [next-build-and-push, nginx-build-and-push]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Setup Tailscale
