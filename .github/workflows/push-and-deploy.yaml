@@ -45,7 +45,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ./packages/akane-next
+          context: .
           file: ./docker/akane-next/Dockerfile
           target: production
           platforms: linux/amd64
