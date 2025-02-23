@@ -2,13 +2,17 @@
 
 import { useBottomSheet } from "@/hooks/BottomSheetHook";
 import { useHeaderQuestion } from "@/hooks/HeaderQuestionHook";
-import { Question, StoryProgression } from "@prisma/client";
-import { useEffect } from "react";
+import { Button, HStack, Icon, Input, Text, VStack } from "@chakra-ui/react";
+import { Hint, Question, QuestionHint, StoryProgression } from "@prisma/client";
+import { useEffect, useState } from "react";
+import { IoMdLock, IoMdUnlock } from "react-icons/io";
 
 export default function QuestionChallengeClientPage({
     question,
+    questionHints,
 }: {
     question: Question;
+    questionHints: (QuestionHint & Hint)[];
     nextQuestionId: bigint | null;
     story_progression: StoryProgression;
 }) {
@@ -22,10 +26,105 @@ export default function QuestionChallengeClientPage({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const [questionHintsUnlocked, setQuestionHintsUnlocked] = useState<boolean[]>(questionHints.map(() => false));
+    const [answer, setAnswer] = useState<string>("");
+    const handleCheckAnswer = () => {
+        if (answer === question.answer) {
+            alert("正解！");
+        } else {
+            alert("不正解！");
+        }
+    };
 
     return (
-        <>
-            a
-        </>
+        <VStack
+            w="100%"
+            h="100%"
+            gap={4}
+        >
+            <form
+                style={{ width: "100%" }}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    handleCheckAnswer();
+                }}
+            >
+                <HStack
+                    w="100%"
+                    justifyContent="space-between"
+                    gap={4}
+                >
+                    <Input
+                        placeholder="回答入力欄"
+                        value={answer}
+                        onChange={(e) => setAnswer(e.target.value)}
+                    />
+                    <Button
+                        p={4}
+                        colorPalette="blue"
+                        type="submit"
+                        disabled={answer === ""}
+                    >
+                        回答！
+                    </Button>
+                </HStack>
+            </form>
+            {questionHints.map((hint, index) => (
+                <HStack
+                    key={hint.id}
+                    w="100%"
+                    gap={4}
+                    p={4}
+                    borderColor="gray.200"
+                    borderWidth="1px"
+                    borderRadius="lg"
+                >
+                    <Icon
+                        fontSize={36}
+                        boxSize={12}
+                        color="black"
+                        bgColor="gray.100"
+                        p={2}
+                        borderRadius="lg"
+                        borderWidth="1px"
+                        borderColor="gray.200"
+                    >
+                        {questionHintsUnlocked[index] ? (
+                            <IoMdUnlock />
+                        ) : (
+                            <IoMdLock />
+                        )}
+                    </Icon>
+                    <VStack
+                        alignItems="flex-start"
+                        gap={2}
+                    >
+                        {questionHintsUnlocked[index] ? (
+                            <>
+                                <Text>
+                                    {hint.title}
+                                </Text>
+                                <Text>
+                                    {hint.content}
+                                </Text>
+                            </>
+                        ) : (
+                            <Button
+                                colorPalette="yellow"
+                                p={4}
+                                mx="auto"
+                                onClick={() => {
+                                    const newQuestionHintsUnlocked = [...questionHintsUnlocked];
+                                    newQuestionHintsUnlocked[index] = true;
+                                    setQuestionHintsUnlocked(newQuestionHintsUnlocked);
+                                }}
+                            >
+                                ヒント{index}を見る
+                            </Button>
+                        )}
+                    </VStack>
+                </HStack>
+            ))}
+        </VStack>
     );
 }
