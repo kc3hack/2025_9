@@ -14,7 +14,7 @@ export function ParseQueryParam(param: string | null): number | undefined {
     return undefined;
   }
   const num = Number(param);
-  if (isNaN(num)) {
+  if (Number.isNaN(num)) {
     return undefined;
   }
   return num;

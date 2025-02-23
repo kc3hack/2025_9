@@ -1,8 +1,8 @@
 import { Card, Separator, Text } from "@chakra-ui/react";
 import Link from "next/link";
-import SquareImage from "@/helper/squareImage";
+import SquareImage from "@/components/story/squareImage";
 import styles from "./StoryCard.module.css";
-import StatusHandler from "@/helper/statusHandler";
+import { getCardBorderColor, getStatusMessage } from "@/helper/statusHandler";
 
 /*
 background: カードの背景色：string(Chakra-ui)
@@ -46,8 +46,8 @@ export function StoryCard({
   separatorColor: string;
   status: string;
 }) {
-  const cardBorderColor = StatusHandler.getCardBorderColor(status);
-  const statusMessage = StatusHandler.getStatusMessage(status);
+  const cardBorderColor = getCardBorderColor(status);
+  const statusMessage = getStatusMessage(status);
 
   return (
     <Link href={link}>

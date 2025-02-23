@@ -21,7 +21,7 @@ RUN mkdir -p /app/packages/akane-next
 COPY --chown=node:node package.json package-lock.json ./
 COPY --chown=node:node packages/akane-next/package.json ./packages/akane-next/
 
-RUN npm ci
+RUN npm install
 
 #
 # 開発環境向け
