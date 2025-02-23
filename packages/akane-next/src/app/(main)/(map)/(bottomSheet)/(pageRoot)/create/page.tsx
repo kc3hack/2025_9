@@ -31,108 +31,65 @@ function StoryCreateTop({
     }[];
 }) {
     return (
-        <Box>
-            <Text textStyle="2xl">謎解き作成</Text>
-            <VStack>
-                {/* <Field.Root>
-                    <Field.Label>タイトル</Field.Label>
-                    <Field.HelperText>ストーリータイトルを入力してください</Field.HelperText>
-                    <Field.ErrorText>タイトルが入力されていません</Field.ErrorText>
-                    <Field.RequiredIndicator />
-                    <Input placeholder="ストーリータイトル" />
-                </Field.Root> */}
-                <Field.Root required>
-                    <Field.Label>
-                        タイトル
-                        <Field.RequiredIndicator />
-                    </Field.Label>
-                    <Field.ErrorText>タイトルが入力されていません</Field.ErrorText>
-                    <Input placeholder="ストーリータイトル" />
-                </Field.Root>
-                {/* <Field.Root>
-                    <Field.Label>画像</Field.Label>
-                    <Field.HelperText>ストーリーの画像を選択してください</Field.HelperText>
-                    <Field.ErrorText>画像が選択されていません</Field.ErrorText>
-                    <Field.RequiredIndicator />
-                    <Input type="file" />
-                </Field.Root> */}
-                <FileUploadRoot > {/* maxFiles={5} */}
+      <Box>
+      <Text textStyle="2xl">謎解き作成</Text>
+      <VStack>
+          {/* タイトル */}
+          <Field.Root required>
+              <Field.Label>タイトル <Field.RequiredIndicator /></Field.Label>
+              <Field.ErrorText>タイトルが入力されていません</Field.ErrorText>
+              <Input placeholder="ストーリータイトル" />
+          </Field.Root>
+
+          {/* 画像アップロード */}
+          <Field.Root required>
+              <Field.Label>画像 </Field.Label>
+              <FileUploadRoot>
                   <FileUploadTrigger asChild>
-                      <Button variant="outline" w="full" color = "black" fontWeight="bold">  {/* size="sm" */}
-                      <HiUpload /> 画像アップロード
+                      <Button variant="outline" w="full" color="black" fontWeight="bold">
+                          <HiUpload /> 画像アップロード
                       </Button>
                   </FileUploadTrigger>
                   <FileUploadList showSize clearable />
-                </FileUploadRoot>
+              </FileUploadRoot>
+              <Field.ErrorText>画像が選択されていません</Field.ErrorText>
+          </Field.Root>
 
-                {/* <Field.Root>
-                    <Field.Label>所要時間(参考)</Field.Label>
-                    <Field.HelperText>ストーリーの所要時間を入力してください</Field.HelperText>
-                    <Field.ErrorText>所要時間が入力されていません</Field.ErrorText>
-                    <Field.RequiredIndicator />
-                    <Input placeholder="分" />
-                </Field.Root> */}
-                <Field.Root required>
-                    <Field.Label>
-                        所要時間(参考)
-                        <Field.RequiredIndicator />
-                    </Field.Label>
-                    <Field.ErrorText>所要時間が入力されていません</Field.ErrorText>
-                    <Input placeholder="  分" />
-                </Field.Root>
-                <VStack>
-                    {/* ここに問い${index}を表示 */}
-                    {nazos.map((nazo) => (
-                        // <HStack
-                        //     key={nazo.id}
-                        //     borderWidth="1px"
-                        //     borderRadius="lg"
-                        //     p={2}
-                        //     onClick={() => handleCreateQuestion()}
-                        // >
-                        //     <Text>問い {nazo.id}</Text>
-                        // </HStack>
-                        <Button colorPalette="gray" 
-                                variant="outline"
-                                color = "black"
-                                w="full"  // 横幅を最大にする
-                                key={nazo.id}
-                                borderWidth="1px"
-                                borderRadius="lg"
-                                p={2}
-                                onClick={() => handleCreateQuestion()}>
-                          問い {nazo.id} <RiArrowRightLine />
-                        </Button>
-                    ))}
-                    {/* <Button onClick={() => handleCreateQuestion()}>問題を追加する</Button>  */}
-                    <IconButton aria-label="Add" color = "black" variant="outline" onClick={() => handleCreateQuestion()}>
-                      <FaPlus />
-                    </IconButton>
-                </VStack>
-                <VStack>
-                    <Button
-                        colorPalette="green"
-                        minW="200px"
-                    >
-                        投稿
-                    </Button>
-                    <Button
-                        colorPalette="green"
-                        variant="outline"
-                        color = "green"
-                        minW="200px"
-                    >
-                        下書き保存
-                    </Button>
-                    <Button
-                        colorPalette="red"
-                        minW="200px"
-                    >
-                        削除
-                    </Button>
-                </VStack>
-            </VStack>
-        </Box>
+          {/* 所要時間 */}
+          <Field.Root required>
+              <Field.Label>所要時間(参考) <Field.RequiredIndicator /></Field.Label>
+              <Field.ErrorText>所要時間が入力されていません</Field.ErrorText>
+              <Input placeholder="  分" />
+          </Field.Root>
+
+          {/* 謎のリスト */}
+          <VStack>
+              {nazos.map((nazo) => (
+                  <Button colorPalette="gray" 
+                          variant="outline"
+                          color="black"
+                          minW="20vh"
+                          key={nazo.id}
+                          borderWidth="1px"
+                          borderRadius="lg"
+                          p={2}
+                          onClick={() => handleCreateQuestion()}>
+                    問い {nazo.id} <RiArrowRightLine />
+                  </Button>
+              ))}
+              <IconButton aria-label="Add" color="black" variant="outline" onClick={() => handleCreateQuestion()}>
+                <FaPlus />
+              </IconButton>
+          </VStack>
+
+          {/* 投稿・下書き・削除 */}
+          <VStack>
+              <Button colorPalette="green" minW="20vh">投稿</Button>
+              <Button colorPalette="green" variant="outline" color="green" minW="20vh">下書き保存</Button>
+              <Button colorPalette="red" minW="20vh">削除</Button>
+          </VStack>
+      </VStack>
+  </Box>
     )
 }
 
