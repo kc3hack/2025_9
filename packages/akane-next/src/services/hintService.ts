@@ -1,7 +1,7 @@
 import prisma from "../prisma/client";
 import type { PrismaClient } from "@prisma/client";
 import { createUUID } from "@/helper/uuid";
-import { Hint } from "@/model/hint";
+import type { Hint } from "@/model/hint";
 import { FilterAndTrimEmptyStrings } from "@/helper/dataSanitizer";
 
 class Service {
@@ -33,7 +33,7 @@ class Service {
    * @returns {Promise<Hint[]>} ヒントのリスト
    *  */
   // TODO: 複数IDを指定して取得するメソッドを追加する
-  async findHints(limit: number = 10, offset: number = 0): Promise<Hint[]> {
+  async findHints(limit = 10, offset = 0): Promise<Hint[]> {
     const hints = await prisma.hint.findMany({
       take: limit,
       skip: offset,
