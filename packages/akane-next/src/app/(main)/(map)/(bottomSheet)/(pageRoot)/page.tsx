@@ -128,7 +128,7 @@ export default function TopPage() {
                                     {story.estimated_time}
                                 </Text>
                                 <Text>
-                                    {story.distance.toFixed(2)}km
+                                    {story.distance.toFixed(2)}m
                                 </Text>
                             </VStack>
                         </HStack>
