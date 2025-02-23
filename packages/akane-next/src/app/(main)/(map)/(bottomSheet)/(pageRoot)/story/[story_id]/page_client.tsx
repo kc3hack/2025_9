@@ -107,11 +107,13 @@ export default function StoryDetailClientPage({
 	return (
 		<div>
 			<VStack alignItems="flex-start" w="100%" p={4} gap={4}>
-				<Image
-					width="640px"
-					src={storyWithDistance.image_url ?? ""}
-					alt={storyWithDistance.title}
-				/>
+				{storyWithDistance.image_url && (
+					<Image
+						width="640px"
+						src={storyWithDistance.image_url ?? ""}
+						alt={storyWithDistance.title}
+					/>
+				)}
 				<HStack justifyContent="space-between" w="100%">
 					<HStack gap={2} alignItems="flex-start">
 						<Icon
@@ -182,9 +184,11 @@ export default function StoryDetailClientPage({
 				<Flex w="100%" justifyContent="center" alignItems="center">
 					<ButtonGroup size="sm">
 						<Link href={`/story/${storyWithDistance.id}/challenge/0`}>
-							<Button colorPalette="blue" p={4}>
+							<Button colorPalette="blue" p={1} size={"sm"}>
 								<IoMdFlag />
-								<Text fontWeight={"bold"}>この謎解きに挑戦する</Text>
+								<Text fontWeight={"bold"} textStyle={"sm"}>
+									この謎解きに挑戦する
+								</Text>
 							</Button>
 						</Link>
 						<Link href="/">
@@ -192,9 +196,12 @@ export default function StoryDetailClientPage({
 								colorPalette={"red"}
 								variant={"outline"}
 								borderColor={"red.500"}
-								p={4}
+								p={1}
+								size={"sm"}
 							>
-								<Text fontWeight={"bold"}>←トップページに戻る</Text>
+								<Text fontWeight={"bold"} textStyle={"sm"}>
+									←トップページに戻る
+								</Text>
 							</Button>
 						</Link>
 					</ButtonGroup>
