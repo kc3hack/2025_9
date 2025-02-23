@@ -78,7 +78,9 @@ export default function TopPage() {
 
 	return (
 		<div>
-			<Text textStyle="2xl">近くの謎解き</Text>
+			<Text textStyle="2xl" fontWeight={"bold"} mb={5}>
+				近くの謎解き
+			</Text>
 			<VStack w="100%" gap={4} align="stretch">
 				{storiesWithDistance.map(
 					(story) =>
@@ -108,11 +110,15 @@ export default function TopPage() {
 										>
 											<IoMdPin />
 										</Icon>
-										<Text>{story.title}</Text>
+										<Text textWrap={"balance"}>{story.title}</Text>
 									</HStack>
 									<VStack alignItems={"flex-end"}>
-										<Text>{story.estimated_time}</Text>
-										<Text>{story.distance.toFixed(2)}m</Text>
+										<Text color={"gray.500"} fontSize={"sm"}>
+											{story.estimated_time}
+										</Text>
+										<Text color={"gray.500"} fontSize={"sm"}>
+											{Math.floor(story.distance)}m
+										</Text>
 									</VStack>
 								</HStack>
 							</Link>
