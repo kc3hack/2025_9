@@ -88,3 +88,123 @@ describe("createStory", async () => {
 		});
 	});
 });
+
+describe("findStoriesByLocation", async () => {
+	const kyoto = {
+		latitude: 34.98586624318786,
+		longitude: 135.7584609696994,
+	};
+
+	it("座標近くのストーリーを取得できる", async () => {
+		// 座標に近いStory
+		const story1 = await createStory({
+			latitude: kyoto.latitude + 0.01,
+			longitude: kyoto.longitude - 0.01,
+		});
+		// 座標から少し離れたStory
+		const story2 = await createStory({
+			latitude: kyoto.latitude - 0.02,
+			longitude: kyoto.longitude - 0.02,
+		});
+		// 座標から遠いStory（取得されない）
+		const story3 = await createStory({
+			latitude: kyoto.latitude + 0.9,
+			longitude: kyoto.longitude + 0.9,
+		});
+
+		const stories = await StoryService.findStoriesByLocation({
+			latitude: kyoto.latitude,
+			longitude: kyoto.longitude,
+			range: 0.05,
+		});
+		expect(stories).toEqual([story1, story2]);
+		expect(stories).not.toContain(story3);
+	});
+});
+
+describe("searchStories", async () => {
+	const kyoto = {
+		latitude: 34.98586624318786,
+		longitude: 135.7584609696994,
+	};
+
+	it("タイトルで検索ができる", async () => {
+		const story1 = await createStory({
+			title: "テストテスト検索テストテスト",
+		});
+		const story2 = await createStory({
+			title: "テストテスト",
+		});
+		const result = await StoryService.searchStories("検索");
+		expect(result).toEqual([story1]);
+		expect(result).not.toContain(story2);
+	});
+
+	it("内容で検索できる", async () => {
+		const story1 = await createStory({
+			content: "テストテスト検索テストテスト",
+		});
+		const story2 = await createStory({
+			content: "テストテスト",
+		});
+		const result = await StoryService.searchStories("", "検索");
+		expect(result).toEqual([story1]);
+		expect(result).not.toContain(story2);
+	});
+
+	it("場所で検索ができる", async () => {
+		// 座標に近いStory
+		const story1 = await createStory({
+			latitude: kyoto.latitude + 0.01,
+			longitude: kyoto.longitude - 0.01,
+		});
+		// 座標から少し離れたStory
+		const story2 = await createStory({
+			latitude: kyoto.latitude - 0.02,
+			longitude: kyoto.longitude - 0.02,
+		});
+		// 座標から遠いStory（取得されない）
+		const story3 = await createStory({
+			latitude: kyoto.latitude + 0.9,
+			longitude: kyoto.longitude + 0.9,
+		});
+
+		const result = await StoryService.searchStories("", "", {
+			latitude: kyoto.latitude,
+			longitude: kyoto.longitude,
+			range: 0.05,
+		});
+		expect(result).toEqual([story1, story2]);
+		expect(result).not.toContain(story3);
+	});
+
+	it("組み合わせて検索ができる", async () => {
+		// 座標に近いStory
+		const story1 = await createStory({
+			title: "テスト検索テスト",
+			latitude: kyoto.latitude + 0.01,
+			longitude: kyoto.longitude - 0.01,
+		});
+		// 座標から少し離れたStory
+		const story2 = await createStory({
+			title: "テストテスト",
+			content: "検索",
+			latitude: kyoto.latitude - 0.02,
+			longitude: kyoto.longitude - 0.02,
+		});
+		// コンテンツを含むが、座標から遠いStory（取得されない）
+		const story3 = await createStory({
+			content: "検索",
+			latitude: kyoto.latitude + 0.9,
+			longitude: kyoto.longitude + 0.9,
+		});
+
+		const result = await StoryService.searchStories("検索", "検索", {
+			latitude: kyoto.latitude,
+			longitude: kyoto.longitude,
+			range: 0.05,
+		});
+		expect(result).toEqual([story1, story2]);
+		expect(result).not.toContain(story3);
+	});
+});
