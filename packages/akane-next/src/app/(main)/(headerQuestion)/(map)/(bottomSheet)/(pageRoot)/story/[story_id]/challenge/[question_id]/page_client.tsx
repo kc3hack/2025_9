@@ -10,6 +10,7 @@ import { IoMdLock, IoMdUnlock } from "react-icons/io";
 export default function QuestionChallengeClientPage({
     question,
     questionHints,
+    nextQuestionId,
 }: {
     question: Question;
     questionHints: (QuestionHint & Hint)[];
@@ -17,12 +18,26 @@ export default function QuestionChallengeClientPage({
     //story_progression: StoryProgression;
 }) {
     const { setSnap, snapPoints} = useBottomSheet();
-    const { setTitle, setContent, setIsDisplay } = useHeaderQuestion();
+    const {
+        setTitle,
+        setContent,
+        setStoryId,
+        setNextQuestionId,
+        setIsDisplay,
+        setIsDialogOpen,
+        setDialogType,
+    } = useHeaderQuestion();
     useEffect(() => {
         setSnap(snapPoints[0]);
         setIsDisplay(true);
         setTitle(question.title);
         setContent(question.content);
+        setStoryId(question.story_id);
+        setNextQuestionId(nextQuestionId ?? 0n);
+        return () => {
+            setIsDisplay(false);
+            setIsDialogOpen(false);
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -30,13 +45,23 @@ export default function QuestionChallengeClientPage({
     const [answer, setAnswer] = useState<string>("");
     const handleCheckAnswer = () => {
         if (answer === question.answer) {
-            alert("正解！");
+            setDialogType("correct");
+            setStoryId(question.story_id);
+            if (nextQuestionId) {
+                setNextQuestionId(BigInt(nextQuestionId));
+            }
+            setIsDialogOpen(true);
         } else {
-            alert("不正解！");
+            setDialogType("incorrect");
+            setIsDialogOpen(true);
+            setTimeout(() => {
+                setIsDialogOpen(false);
+            }, 1000 * 5);
         }
     };
 
-    return (
+    return (<>
+        
         <VStack
             w="100%"
             h="100%"
@@ -159,5 +184,6 @@ export default function QuestionChallengeClientPage({
                 </HStack>
             ))}
         </VStack>
+    </>
     );
 }
