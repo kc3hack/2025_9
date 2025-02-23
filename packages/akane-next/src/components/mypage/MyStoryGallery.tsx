@@ -1,8 +1,8 @@
-import { Tabs } from "@chakra-ui/react";
-import { StoryCard } from "../story/StoryCard";
 import treasure from "@/../public/treasure_map.png";
-import type { StaticImageData } from "next/image";
+import { Tabs } from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
+import type { StaticImageData } from "next/image";
+import { StoryCard } from "../story/StoryCard";
 
 // TODO:Storyのmodelができたらそれに差し替える
 type Story = {
@@ -32,7 +32,10 @@ type StoryGalleryProps = {
 	stories: Story[];
 };
 
-export default function StoryGallery({ tabValue, stories }: StoryGalleryProps) {
+export default function MyStoryGallery({
+	tabValue,
+	stories,
+}: StoryGalleryProps) {
 	return (
 		<Tabs.Content
 			value={tabValue}

@@ -1,7 +1,11 @@
-import StoryGallary from "@/components/mypage/StoryGallery";
+import MyStoryGallary from "@/components/mypage/MyStoryGallery";
+import ProgressionStoryGallary from "@/components/mypage/ProgressionStoryGallary";
 import TabTrigger from "@/components/mypage/TabTrigger";
+import { StoryStatus } from "@/constants/status";
 import { Avatar, AvatarGroup, Box, Stack, Tabs, Text } from "@chakra-ui/react";
-import type { Story } from "@prisma/client";
+import type { Story, StoryProgression } from "@prisma/client";
+
+type StoryWithProgression = Story & { progression?: StoryProgression };
 
 export default async function MyPage() {
 	// TODO：storyのAPIが実装されたらここからフェッチする
@@ -9,11 +13,108 @@ export default async function MyPage() {
 	// const story = fetch(Story_ENDPOINT);
 	// const avatarIconURL = "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
 
+	// next/imageの仕様上、外部URLを使用する場合以下のリンクの手順が必要らしい
+	// https://zenn.dev/axoloto210/articles/9dc94b3cdfeae8
 	// const stories: Story[] = await StoryService.findStories();
 	// npm run dev用の仮データ
-	const stories: Story[] = [
+	// storyprogression.where(storyprogression.user_account_id === own_id)
+	// storyProgressionsがnull, undefinedだったときの処理を追加する（fetchしたらnullの可能性がある)
+	const storyProgressions: StoryProgression[] = [
+		{
+			id: BigInt("101255954679102464"),
+			user_account_id: BigInt("101255084679102464"),
+			story_id: BigInt("101255084679102464"),
+			status: StoryStatus.cleared,
+			current_question_id: BigInt("101255084679102464"),
+			created_at: new Date(),
+			updated_at: new Date(),
+		},
+		{
+			id: BigInt("101255954679102464"),
+			user_account_id: BigInt("101255084679102464"),
+			story_id: BigInt("101255084679102465"),
+			status: StoryStatus.cleared,
+			current_question_id: BigInt("101255084679102464"),
+			created_at: new Date(),
+			updated_at: new Date(),
+		},
+		{
+			id: BigInt("101255954679102464"),
+			user_account_id: BigInt("101255084679102464"),
+			story_id: BigInt("101255084679102466"),
+			status: StoryStatus.in_progress,
+			current_question_id: BigInt("101255084679102464"),
+			created_at: new Date(),
+			updated_at: new Date(),
+		},
+		{
+			id: BigInt("101255954679102464"),
+			user_account_id: BigInt("101255084679102464"),
+			story_id: BigInt("101255084679102467"),
+			status: StoryStatus.in_progress,
+			current_question_id: BigInt("101255084679102464"),
+			created_at: new Date(),
+			updated_at: new Date(),
+		},
+	];
+	// fetch(findStories(progressionStoryIDs))
+	const progressingStories: Story[] = [
 		{
 			id: BigInt("101255084679102464"),
+			user_account_id: BigInt("101255084679102464"),
+			title: "fdwas",
+			content: "fads",
+			image_url: "treasure",
+			type: "long",
+			status: "public",
+			difficulty: 1,
+			estimated_time: "1",
+			area: "fa",
+			radius: 3,
+			latitude: 39,
+			longitude: 423,
+			pin_class: null,
+			created_at: new Date(),
+			updated_at: new Date(),
+		},
+		{
+			id: BigInt("101255084679102465"),
+			user_account_id: BigInt("101255084679102464"),
+			title: "fdwas",
+			content: "fads",
+			image_url: "treasure",
+			type: "long",
+			status: "public",
+			difficulty: 1,
+			estimated_time: "1",
+			area: "fa",
+			radius: 3,
+			latitude: 39,
+			longitude: 423,
+			pin_class: null,
+			created_at: new Date(),
+			updated_at: new Date(),
+		},
+		{
+			id: BigInt("101255084679102466"),
+			user_account_id: BigInt("101255084679102464"),
+			title: "fdwas",
+			content: "fads",
+			image_url: "treasure",
+			type: "long",
+			status: "public",
+			difficulty: 1,
+			estimated_time: "1",
+			area: "fa",
+			radius: 3,
+			latitude: 39,
+			longitude: 423,
+			pin_class: null,
+			created_at: new Date(),
+			updated_at: new Date(),
+		},
+		{
+			id: BigInt("101255084679102467"),
 			user_account_id: BigInt("101255084679102464"),
 			title: "fdwas",
 			content: "fads",
@@ -30,14 +131,35 @@ export default async function MyPage() {
 			created_at: new Date(),
 			updated_at: new Date(),
 		},
+	];
+
+	const storyIncludeProgression: StoryWithProgression[] =
+		progressingStories.map((story) => {
+			const progression = storyProgressions.find(
+				(prog) => prog.story_id === story.id,
+			);
+
+			return {
+				...story,
+				progression: progression
+					? {
+							...progression,
+							current_question_id: progression.current_question_id ?? null,
+						}
+					: undefined,
+			};
+		});
+
+	// findStories.which(story.user_acocunt_id === own_id)
+	const ownStories: Story[] = [
 		{
 			id: BigInt("101255084679102464"),
 			user_account_id: BigInt("101255084679102464"),
-			title: "fdwas",
+			title: "1",
 			content: "fads",
 			image_url: "treasure",
 			type: "long",
-			status: "in_progress",
+			status: StoryStatus.private,
 			difficulty: 1,
 			estimated_time: "1",
 			area: "fa",
@@ -49,13 +171,13 @@ export default async function MyPage() {
 			updated_at: new Date(),
 		},
 		{
-			id: BigInt("101255084679102464"),
+			id: BigInt("101255084679102465"),
 			user_account_id: BigInt("101255084679102464"),
-			title: "fdwas",
+			title: "2",
 			content: "fads",
 			image_url: "treasure",
 			type: "long",
-			status: "in_progress",
+			status: StoryStatus.public,
 			difficulty: 1,
 			estimated_time: "1",
 			area: "fa",
@@ -67,13 +189,31 @@ export default async function MyPage() {
 			updated_at: new Date(),
 		},
 		{
-			id: BigInt("101255084679102464"),
+			id: BigInt("101255084679102466"),
 			user_account_id: BigInt("101255084679102464"),
-			title: "fdwas",
+			title: "3",
 			content: "fads",
 			image_url: "treasure",
 			type: "long",
-			status: "in_progress",
+			status: StoryStatus.public,
+			difficulty: 1,
+			estimated_time: "1",
+			area: "fa",
+			radius: 3,
+			latitude: 39,
+			longitude: 423,
+			pin_class: null,
+			created_at: new Date(),
+			updated_at: new Date(),
+		},
+		{
+			id: BigInt("101255084679102467"),
+			user_account_id: BigInt("101255084679102464"),
+			title: "4",
+			content: "fads",
+			image_url: "treasure",
+			type: "long",
+			status: StoryStatus.private,
 			difficulty: 1,
 			estimated_time: "1",
 			area: "fa",
@@ -131,9 +271,17 @@ export default async function MyPage() {
 						{/* <Tabs.Indicator rounded={6} /> */}
 					</Tabs.List>
 					<Tabs.ContentGroup>
-						<StoryGallary tabValue="tab1" stories={stories} />
-						<StoryGallary tabValue="tab2" stories={stories} />
-						<StoryGallary tabValue="tab3" stories={stories} />
+						<ProgressionStoryGallary
+							tabValue="tab1"
+							stories={storyIncludeProgression}
+							page="in_progress"
+						/>
+						<ProgressionStoryGallary
+							tabValue="tab2"
+							stories={storyIncludeProgression}
+							page="cleared"
+						/>
+						<MyStoryGallary tabValue="tab3" stories={ownStories} />
 					</Tabs.ContentGroup>
 				</Tabs.Root>
 			</Stack>
