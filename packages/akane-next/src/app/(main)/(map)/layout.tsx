@@ -12,9 +12,18 @@ export default function MapLayout({
 }: Readonly<{
     children: ReactNode;
 }>) {
-    const { position } = useLocation(); // useLocationフックを使用して位置情報を取得
+    const {
+        position,
+        isFirstFlyLocation,
+        setIsFirstFlyLocation,
+    } = useLocation(); // useLocationフックを使用して位置情報を取得
     const [mapCenter, setMapCenter] = useState<[number, number]>(position ? [position.coords.longitude, position.coords.latitude] : [135.739078, 34.995022]);
-    const { map, mapContainerRef, isMapLoaded } = useMap();
+    const {
+        map,
+        mapContainerRef,
+        isMapLoaded,
+        followMode,
+    } = useMap();
 
     useEffect(() => {
         if (map) {
@@ -50,16 +59,21 @@ export default function MapLayout({
                 source: 'position',
                 paint: {
                     'circle-radius': 10,
-                    'circle-color': 'white',
-                    'circle-stroke-color': 'blue',
-                    'circle-stroke-width': 2,
+                    'circle-color': '#4169e1',
+                    'circle-stroke-color': 'white',
+                    'circle-stroke-width': 3,
                 },
             });
-            map.flyTo({
-                center: [position.coords.longitude, position.coords.latitude],
-                zoom: 20,
-                duration: 500,
-            });
+            console.log('position', position, isFirstFlyLocation);
+            if (followMode === 'mylocation' || isFirstFlyLocation) {
+                console.log('flyTo');
+                if (isFirstFlyLocation) setIsFirstFlyLocation(false);
+                map.flyTo({
+                    center: [position.coords.longitude, position.coords.latitude],
+                    zoom: 20,
+                    duration: 500,
+                });
+            }
         }
 
         return () => {
