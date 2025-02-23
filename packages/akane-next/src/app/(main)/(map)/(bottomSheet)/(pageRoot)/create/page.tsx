@@ -31,18 +31,18 @@ function StoryCreateTop({
     }[];
 }) {
     return (
-      <Box>
-      <Text textStyle="2xl">謎解き作成</Text>
+      <Box p={4}>
+      <Text textStyle="2xl" mb={4} >謎解き作成</Text>
       <VStack>
           {/* タイトル */}
-          <Field.Root required>
+          <Field.Root required mb={4}>
               <Field.Label>タイトル <Field.RequiredIndicator /></Field.Label>
               <Field.ErrorText>タイトルが入力されていません</Field.ErrorText>
               <Input placeholder="ストーリータイトル" />
           </Field.Root>
 
           {/* 画像アップロード */}
-          <Field.Root required>
+          <Field.Root required mb={4}>
               <Field.Label>画像 </Field.Label>
               <FileUploadRoot>
                   <FileUploadTrigger asChild>
@@ -56,7 +56,7 @@ function StoryCreateTop({
           </Field.Root>
 
           {/* 所要時間 */}
-          <Field.Root required>
+          <Field.Root required mb={4}>
               <Field.Label>所要時間(参考) <Field.RequiredIndicator /></Field.Label>
               <Field.ErrorText>所要時間が入力されていません</Field.ErrorText>
               <Input placeholder="  分" />
@@ -72,7 +72,7 @@ function StoryCreateTop({
                           key={nazo.id}
                           borderWidth="1px"
                           borderRadius="lg"
-                          p={2}
+                          p={4}
                           onClick={() => handleCreateQuestion()}>
                     問い {nazo.id} <RiArrowRightLine />
                   </Button>
@@ -84,9 +84,9 @@ function StoryCreateTop({
 
           {/* 投稿・下書き・削除 */}
           <VStack>
-              <Button colorPalette="green" minW="20vh">投稿</Button>
-              <Button colorPalette="green" variant="outline" color="green" minW="20vh">下書き保存</Button>
-              <Button colorPalette="red" minW="20vh">削除</Button>
+              <Button colorPalette="green" minW="20vh" mb={3}>投稿</Button>
+              <Button colorPalette="green" variant="outline" color="green" minW="20vh" mb={3}>下書き保存</Button>
+              <Button colorPalette="red" minW="20vh" mb={3}>削除</Button>
           </VStack>
       </VStack>
   </Box>
