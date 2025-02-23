@@ -114,7 +114,6 @@ export default function StoryDetailClientPage() {
 
 	return (
 		<div>
-			<Link href="/">←トップページに戻る</Link>
 			<VStack
 				alignItems="flex-start"
 				w="100%"
@@ -188,11 +187,29 @@ export default function StoryDetailClientPage() {
 						</DataList.ItemValue>
 					</DataList.Item>
 				</DataList.Root>
-				<Flex w="100%" justifyContent="center" alignItems="center">
+				<Flex w="100%" justifyContent="center" alignItems="center" gap={2}>
 					<Link href={`/story/${storyWithDistance.id}/challenge/0`}>
-						<Button colorPalette="blue" size="lg" borderRadius="lg" p={4}>
+						<Button
+							fontWeight={"bolder"}
+							colorPalette="blue"
+							size="sm"
+							borderRadius="lg"
+							p={2}
+						>
 							<IoMdFlag />
 							この謎解きに挑戦する
+						</Button>
+					</Link>
+					<Link href="/">
+						<Button
+							fontWeight={"bolder"}
+							borderColor="pink"
+							color="pink"
+							size="sm"
+							borderRadius="lg"
+							p={2}
+						>
+							←トップページに戻る
 						</Button>
 					</Link>
 				</Flex>
