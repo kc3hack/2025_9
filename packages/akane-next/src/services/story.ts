@@ -41,6 +41,10 @@ class Service {
 	async createStory(story: Partial<DBStory>): Promise<DBStory> {
 		if (!story.title) throw new Error("Title is required");
 		if (!story.content) throw new Error("Content is required");
+		if (!story.type) throw new Error("Type is required");
+		if (!story.area) throw new Error("Area is required");
+		if (story.latitude === undefined) throw new Error("Latitude is required");
+		if (story.longitude === undefined) throw new Error("Longitude is required");
 
 		const data = await this.db.story.create({
 			data: {
