@@ -47,7 +47,8 @@ const locations: Story[] = [
 		title: "京都駅モンスターの足跡",
 		content:
 			"京都駅周辺には、巨大なモンスターが出現したという目撃情報がある。モンスターの足跡をたどり、その正体を突き止めよう。",
-		image_url: "/next.svg",
+		image_url:
+			"https://images.unsplash.com/photo-1732827192471-5a33001ae4d7?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 		area: "京都駅",
 		type: "short",
 		status: "published",
@@ -66,7 +67,8 @@ const locations: Story[] = [
 		title: "京都タワーと君と僕",
 		content:
 			"京都タワーの周辺には、君と僕の思い出が詰まっている。君と僕の思い出をたどり、その先に待つものを探し出そう。",
-		image_url: "/next.svg",
+		image_url:
+			"https://images.unsplash.com/photo-1710759086743-6d5875f39485?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 		area: "京都タワー",
 		type: "short",
 		status: "published",
@@ -85,7 +87,8 @@ const locations: Story[] = [
 		title: "家電量販店の地下には巨大食料庫があるって本当？",
 		content:
 			"京都駅近くには大きな家電量販店がいくつかある。どこかの家電量販店の地下には、巨大な食料庫があるという噂がある。その噂を確かめたい。",
-		image_url: "/next.svg",
+		image_url:
+			"https://images.unsplash.com/photo-1606787366850-de6330128bfc?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 		area: "京都駅",
 		type: "short",
 		status: "published",
