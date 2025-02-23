@@ -4,7 +4,7 @@ export const stories: Story[] = [...Array(50)].map((_, i) => ({
     id: BigInt(i),
     user_account_id: BigInt(i + 1111),
     title: `謎解き${i}`,
-    content: `謎解き${i}の内容`,
+    content: `謎解き${i}の内容あああああああああああああ\niああああああああああああ`,
     image_url: "/next.svg",
     type: i % 2 === 0 ? "short" : "normal", // short | normal で想定
     status: "published",

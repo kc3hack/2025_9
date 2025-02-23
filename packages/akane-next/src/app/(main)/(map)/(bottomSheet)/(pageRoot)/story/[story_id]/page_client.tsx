@@ -4,7 +4,7 @@ import { getDistanceByTwoPoints } from "@/helper/location";
 import { useBottomSheet } from "@/hooks/BottomSheetHook";
 import { useLocation } from "@/hooks/LocationHook";
 import { useMap } from "@/hooks/MapHook";
-import { Box, Button, DataList, Flex, HStack, Icon, Image, Link, Text, VStack } from "@chakra-ui/react";
+import { Button, DataList, Flex, HStack, Icon, Image, Link, Text, VStack } from "@chakra-ui/react";
 import { Story } from "@prisma/client";
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
@@ -117,13 +117,19 @@ export default function StoryDetailClientPage({
                         <DataList.ItemLabel>所要時間</DataList.ItemLabel>
                         <DataList.ItemValue>{storyWithDistance.estimated_time}</DataList.ItemValue>
                     </DataList.Item>
+                    <DataList.Item>
+                        <DataList.ItemLabel>あらすじ(概要)</DataList.ItemLabel>
+                        <DataList.ItemValue>
+                            <VStack alignItems="flex-start">
+                                {storyWithDistance.content.split("\n").map((line, i) => (
+                                    <Text key={i}>
+                                        {line}
+                                    </Text>
+                                ))}
+                            </VStack>
+                        </DataList.ItemValue>
+                    </DataList.Item>
                 </DataList.Root>
-                <Box>
-                    <Text textStyle="lg">あらすじ(概要)</Text>
-                    <Text textStyle="sm">
-                        {storyWithDistance.content}
-                    </Text>
-                </Box>
                 <Flex
                     w="100%"
                     justifyContent="center"
