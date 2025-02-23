@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Field, HStack, Input, Text, VStack, IconButton } from "@chakra-ui/react";
+import { Box, Button, Field, HStack, Input, Text, IconButton, Textarea, Flex, VStack, StackProps } from "@chakra-ui/react";
 import { Dispatch, useState } from "react";
 import {
   FileUploadRoot,
@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/file-upload"
 import { FaPlus } from "react-icons/fa";
 import { HiUpload } from "react-icons/hi"
-import { RiArrowRightLine } from "react-icons/ri"
+import { RiArrowRightLine, RiArrowLeftLine } from "react-icons/ri"
 
 function StoryCreateTop({
     handleCreateQuestion,
@@ -114,62 +114,79 @@ function QuestionPage({
     }[]>;
 }) {
     return (
-        <Box>
-            <Button onClick={() => setPageState("/")}>←戻る</Button>
-            <Text textStyle="2xl">問題作成</Text>
+        <Box p={4}>
+            {/* <Button onClick={() => setPageState("/")}>←戻る</Button> */}
+            <Button onClick={() => setPageState("/")}>
+            <RiArrowLeftLine />戻る
+            </Button>
+            <Flex gap="4" justify="space-between" mb={6}>
+              <Text textStyle="2xl">問題作成</Text>   
+              <Button colorPalette="red" minW="20vh">削除</Button>
+            </Flex>
+
             <VStack>
-                <Field.Root>
-                    <Field.Label>問題</Field.Label>
-                    <Field.HelperText>問題文を入力してください</Field.HelperText>
-                    <Field.ErrorText>問題文が入力されていません</Field.ErrorText>
-                    <Field.RequiredIndicator />
-                    <Input placeholder="問題文" />
-                </Field.Root>
-                <Field.Root>
-                    <Field.Label>画像</Field.Label>
-                    <Field.HelperText>問題の画像を選択してください</Field.HelperText>
-                    <Field.ErrorText>画像が選択されていません</Field.ErrorText>
-                    <Field.RequiredIndicator />
-                    <Input type="file" />
-                </Field.Root>
-                <Field.Root>
-                    <Field.Label>答え</Field.Label>
-                    <Field.HelperText>問題の答えを入力してください</Field.HelperText>
-                    <Field.ErrorText>答えが入力されていません</Field.ErrorText>
-                    <Field.RequiredIndicator />
-                    <Input placeholder="答え" />
-                </Field.Root>
-                <Field.Root>
+              <Field.Root mb={6}>
+                <Field.Label>問題の内容<Field.RequiredIndicator /></Field.Label>
+                <Textarea placeholder="内容" />
+              </Field.Root>
+
+              <Field.Root required mb={6}>
+                <Field.Label>画像 </Field.Label>
+                <FileUploadRoot>
+                    <FileUploadTrigger asChild>
+                        <Button variant="outline" w="full" color="black" fontWeight="bold">
+                            <HiUpload /> 画像アップロード
+                        </Button>
+                    </FileUploadTrigger>
+                    <FileUploadList showSize clearable />
+                  </FileUploadRoot>
+                  <Field.ErrorText>画像が選択されていません</Field.ErrorText>
+              </Field.Root>
+
+              {/* <Field.Root>
+                  <Field.Label>答え</Field.Label>
+                  <Field.HelperText>問題の答えを入力してください</Field.HelperText>
+                  <Field.ErrorText>答えが入力されていません</Field.ErrorText>
+                  <Field.RequiredIndicator />
+                  <Input placeholder="答え" />
+              </Field.Root> */}
+              <Field.Root required mb={6}>
+                <Field.Label>答え <Field.RequiredIndicator /></Field.Label>
+                <Field.ErrorText>答えが入力されていません</Field.ErrorText>
+                <Input placeholder="答え" />
+              </Field.Root>
+
+                {/* <Field.Root>
                     <Field.Label>ヒント1</Field.Label>
                     <Field.HelperText>問題のヒント1を入力してください</Field.HelperText>
                     <Field.ErrorText>ヒント1が入力されていません</Field.ErrorText>
                     <Field.RequiredIndicator />
                     <Input placeholder="ヒント1" />
-                </Field.Root>
-                <Field.Root>
-                    <Field.Label>ヒント2</Field.Label>
-                    <Field.HelperText>問題のヒント2を入力してください</Field.HelperText>
-                    <Field.ErrorText>ヒント2が入力されていません</Field.ErrorText>
-                    <Field.RequiredIndicator />
-                    <Input placeholder="ヒント2" />
-                </Field.Root>
-                <Field.Root>
-                    <Field.Label>ヒント3</Field.Label>
-                    <Field.HelperText>問題のヒント3を入力してください</Field.HelperText>
-                    <Field.ErrorText>
-                        ヒント3が入力されていません
-                    </Field.ErrorText>
-                    <Field.RequiredIndicator />
-                    <Input placeholder="ヒント3" />
-                </Field.Root>
-                <Field.Root>
-                    {/* ここはmaplayoutの地図のclickEventとかを取るのでFieldとかはつかわない */}
-                    <Field.Label>場所</Field.Label>
-                    <Field.HelperText>問題の場所を入力してください</Field.HelperText>
-                    <Field.ErrorText>場所が入力されていません</Field.ErrorText>
-                    <Field.RequiredIndicator />
-                    <Input placeholder="場所" />
-                </Field.Root>
+                </Field.Root> */}
+              <Field.Root required mb={6}>
+                <Field.Label>ヒント１<Field.RequiredIndicator /></Field.Label>
+                <Field.ErrorText>ヒント１が入力されていません</Field.ErrorText>
+                <Input placeholder="ヒント１" />
+              </Field.Root>
+
+              <Field.Root mb={6}>
+                <Field.Label>ヒント２</Field.Label>
+                <Input placeholder="ヒント２" />
+              </Field.Root>
+              <Field.Root mb={6}>
+                <Field.Label>ヒント３</Field.Label>
+                <Input placeholder="ヒント３" />
+              </Field.Root>
+
+              <Field.Root mb={6}>
+                  {/* ここはmaplayoutの地図のclickEventとかを取るのでFieldとかはつかわない */}
+                  <Field.Label>場所</Field.Label>
+                  <Field.HelperText>問題の場所を入力してください</Field.HelperText>
+                  <Field.ErrorText>場所が入力されていません</Field.ErrorText>
+                  <Field.RequiredIndicator />
+                  <Input placeholder="場所" />
+              </Field.Root>
+
             </VStack>
         </Box>
     )
