@@ -22,7 +22,7 @@ export function getQuestionHints(question_id: bigint): (QuestionHint & Hint)[] {
         priority: i,
         type: "hint",
         title: `ヒント${i}`,
-        content: `これはアレです${i}`,
+        content: `これは${i + 1}つ目のヒントです`,
         image_url: "/next.svg",
         created_at: new Date(),
         updated_at: new Date(),
