@@ -1,13 +1,11 @@
 import Image from "next/image";
 import { Box } from "@chakra-ui/react";
-import type { StaticImageData } from "next/image";
 
 type SquareImageProps = {
-	// local画像をnext/imageのImageで仕様するために型を追加している
-	src: string | StaticImageData;
-	alt: string;
-	size?: number;
-	radius?: string;
+  src: string;
+  alt: string;
+  size?: number;
+  radius?: string;
 };
 
 /**
@@ -21,22 +19,22 @@ type SquareImageProps = {
  * @returns
  */
 const SquareImage: React.FC<SquareImageProps> = ({
-	src,
-	alt,
-	size = 50,
-	radius,
+  src,
+  alt,
+  size = 50,
+  radius,
 }) => {
-	return (
-		<Box
-			width={`${size}px`}
-			height={`${size}px`}
-			position="relative"
-			overflow="hidden"
-			borderRadius={radius}
-		>
-			<Image src={src} alt={alt} layout="fill" objectFit="cover" />
-		</Box>
-	);
+  return (
+    <Box
+      width={`${size}px`}
+      height={`${size}px`}
+      position="relative"
+      overflow="hidden"
+      borderRadius={radius}
+    >
+      <Image src={src} alt={alt} layout="fill" objectFit="cover" />
+    </Box>
+  );
 };
 
 export default SquareImage;
