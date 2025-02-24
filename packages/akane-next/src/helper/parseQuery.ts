@@ -10,12 +10,12 @@
  */
 
 export function ParseQueryParam(param: string | null): number | undefined {
-  if (param === null) {
-    return undefined;
-  }
-  const num = Number(param);
-  if (Number.isNaN(num)) {
-    return undefined;
-  }
-  return num;
+	if (param === null) {
+		return undefined;
+	}
+	const num = Number(param);
+	if (Number.isNaN(num)) {
+		return undefined;
+	}
+	return num;
 }

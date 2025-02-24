@@ -1,7 +1,7 @@
 .imageContainer {
-  width: fit-content;
-  margin-top: 5px;
-  border: 3.5px solid white;
-  border-radius: 18px;
-  margin: 5px auto 0 auto;
+	width: fit-content;
+	margin-top: 5px;
+	border: 3.5px solid white;
+	border-radius: 18px;
+	margin: 5px auto 0 auto;
 }

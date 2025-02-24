@@ -1,12 +1,12 @@
 schema {
-    query: Query
+	query: Query
 }
 
 type Query {
-    user(id: ID!): User
+	user(id: ID!): User
 }
 
 type User {
-    id: ID!
-    name: String!
+	id: ID!
+	name: String!
 }

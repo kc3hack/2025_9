@@ -6,14 +6,14 @@
  * @returns 空でない要素だけを含む新しいオブジェクト
  */
 export function FilterAndTrimEmptyStrings<T extends object>(
-  data: T
+	data: T,
 ): Partial<T> {
-  return Object.fromEntries(
-    Object.entries(data)
-      .map(([key, value]) => [
-        key,
-        typeof value === "string" ? value.trim() : value,
-      ])
-      .filter(([, value]) => value !== "")
-  ) as Partial<T>;
+	return Object.fromEntries(
+		Object.entries(data)
+			.map(([key, value]) => [
+				key,
+				typeof value === "string" ? value.trim() : value,
+			])
+			.filter(([, value]) => value !== ""),
+	) as Partial<T>;
 }

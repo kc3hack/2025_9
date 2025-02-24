@@ -10,11 +10,11 @@ import SafeJSON from "./json";
  * @returns {Response} application/json形式のResponse
  */
 export function JSONResponse(data: object): Response {
-  return new Response(SafeJSON.stringify(data), {
-    headers: {
-      "content-type": "application/json",
-    },
-  });
+	return new Response(SafeJSON.stringify(data), {
+		headers: {
+			"content-type": "application/json",
+		},
+	});
 }
 
 /**
@@ -25,10 +25,10 @@ export function JSONResponse(data: object): Response {
  * @returns {Response} 404 Not FoundのResponse
  */
 export function NotFoundResponse(lackingItem: string): Response {
-  return NextResponse.json(
-    { error: `${lackingItem} not found` },
-    { status: 404 }
-  );
+	return NextResponse.json(
+		{ error: `${lackingItem} not found` },
+		{ status: 404 },
+	);
 }
 
 /**
@@ -38,7 +38,7 @@ export function NotFoundResponse(lackingItem: string): Response {
  * @returns {Response} 400 Bad RequestのResponse
  */
 export function BadRequestResponse(message = "Bad Request"): Response {
-  return new Response(message, {
-    status: 400,
-  });
+	return new Response(message, {
+		status: 400,
+	});
 }
