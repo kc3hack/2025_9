@@ -3,7 +3,6 @@ import { getStories } from "../../story_mock";
 import Link from "next/link";
 import StoryDetailClientPage from "./page_client";
 import { AsBigInt } from "@/helper/bigint";
-import { findQuestionsByStoryID } from "@/helper/mock/question";
 
 export default async function StoryDetail({
 	params,
@@ -16,15 +15,7 @@ export default async function StoryDetail({
 	const story = getStories().find((story) => story.id === AsBigInt(story_id));
 	console.log(story_id);
 	getStories().map((story) => console.log(story.id));
-	const questions = findQuestionsByStoryID(BigInt(story_id));
-	let firstQuestionId;
-	if (questions.length > 0) {
-		firstQuestionId = questions[0].id;
-		console.log(firstQuestionId);
-	} else {
-		firstQuestionId = null;
-		console.log("No questions found for this story.");
-	}
+
 	if (!story) {
 		return (
 			<div>
@@ -34,5 +25,5 @@ export default async function StoryDetail({
 			</div>
 		);
 	}
-	return <StoryDetailClientPage story={story} firstQuestionId={firstQuestionId} />;
+	return <StoryDetailClientPage story={story} />;
 }
