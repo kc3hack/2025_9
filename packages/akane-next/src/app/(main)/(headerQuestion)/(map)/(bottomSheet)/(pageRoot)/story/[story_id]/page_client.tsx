@@ -28,7 +28,7 @@ export default function StoryDetailClientPage({
 	firstQuestionId,
 }: {
 	story: Story;
-	firstQuestionId: bigint;
+	firstQuestionId: bigint | null;
 }) {
 	const { map, isMapLoaded } = useMap();
 	const { position } = useLocation();
@@ -185,7 +185,7 @@ export default function StoryDetailClientPage({
 				</DataList.Root>
 				<Flex w="100%" justifyContent="center" alignItems="center">
 					<ButtonGroup size="sm">
-						<Link href={`/story/${storyWithDistance.id}/challenge/${firstQuestionId.toString()}`}>
+						<Link href={`/story/${storyWithDistance.id}/challenge/${firstQuestionId?.toString()}`}>
 							<Button colorPalette="blue" p={1} size={"sm"}>
 								<IoMdFlag />
 								<Text fontWeight={"bold"} textStyle={"sm"}>
