@@ -1,13 +1,13 @@
 export type Question = {
-  id: bigint
-  storyID: bigint
+	id: bigint;
+	storyID: bigint;
 
-  title: string
-  content: string
+	title: string;
+	content: string;
 
-  imageURL?: string
+	imageURL?: string;
 
-  answer: string
+	answer: string;
 
-  priority: number
-}
+	priority: number;
+};

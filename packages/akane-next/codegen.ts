@@ -1,22 +1,22 @@
 import { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
-  schema: "./schema/akane-web-graphql.gql",
-  documents: ["src/**/*.tsx", "src/**/*.ts"],
-  generates: {
-    "./apollo/__generated__/client/": {
-      preset: "client",
-      plugins: [],
-      presetConfig: {
-        gqlTagName: "gql",
-        persistedDocuments: true,
-      },
-    },
-    "./apollo/__generated__/server/resolvers-types.ts": {
-      plugins: ["typescript", "typescript-resolvers"],
-    },
-  },
-  ignoreNoDocuments: true,
+	schema: "./schema/akane-web-graphql.gql",
+	documents: ["src/**/*.tsx", "src/**/*.ts"],
+	generates: {
+		"./apollo/__generated__/client/": {
+			preset: "client",
+			plugins: [],
+			presetConfig: {
+				gqlTagName: "gql",
+				persistedDocuments: true,
+			},
+		},
+		"./apollo/__generated__/server/resolvers-types.ts": {
+			plugins: ["typescript", "typescript-resolvers"],
+		},
+	},
+	ignoreNoDocuments: true,
 };
 
 export default config;

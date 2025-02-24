@@ -1,25 +1,27 @@
 "use client";
-import React, { createContext, ReactNode, useState } from 'react';
+import React, { createContext, ReactNode, useState } from "react";
 
 interface BottomSheetContextProps {
-    snap: number | string | null;
-    setSnap: React.Dispatch<React.SetStateAction<number | string | null>>;
-    snapPoints: Array<number | string>;
+	snap: number | string | null;
+	setSnap: React.Dispatch<React.SetStateAction<number | string | null>>;
+	snapPoints: Array<number | string>;
 }
 
-export const BottomSheetContext = createContext<BottomSheetContextProps | undefined>(undefined);
+export const BottomSheetContext = createContext<
+	BottomSheetContextProps | undefined
+>(undefined);
 
 export const BottomSheetProvider = ({
-    children
+	children,
 }: Readonly<{
-    children: ReactNode;
+	children: ReactNode;
 }>) => {
-    const snapPoints = [.4, .7, .9];
-    const [snap, setSnap] = useState<number | string | null>(snapPoints[0]);
+	const snapPoints = [0.4, 0.7, 0.9];
+	const [snap, setSnap] = useState<number | string | null>(snapPoints[0]);
 
-    return (
-        <BottomSheetContext.Provider value={{ snap, setSnap, snapPoints }}>
-            {children}
-        </BottomSheetContext.Provider>
-    );
+	return (
+		<BottomSheetContext.Provider value={{ snap, setSnap, snapPoints }}>
+			{children}
+		</BottomSheetContext.Provider>
+	);
 };

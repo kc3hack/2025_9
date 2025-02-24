@@ -1,8 +1,8 @@
-import { Text } from "@chakra-ui/react";
-import { getStories } from "../../story_mock";
-import Link from "next/link";
-import StoryDetailClientPage from "./page_client";
 import { AsBigInt } from "@/helper/bigint";
+import { Text } from "@chakra-ui/react";
+import Link from "next/link";
+import { getStories } from "../../story_mock";
+import StoryDetailClientPage from "./page_client";
 
 export default async function StoryDetail({
 	params,

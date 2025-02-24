@@ -1,11 +1,11 @@
 "use client";
-import { useContext } from 'react';
-import { BottomSheetContext } from '@/context/BottomSheetContext';
+import { BottomSheetContext } from "@/context/BottomSheetContext";
+import { useContext } from "react";
 
 export const useBottomSheet = () => {
-    const context = useContext(BottomSheetContext);
-    if (!context) {
-        throw new Error('useBottomSheet must be used within a BottomSheetProvider');
-    }
-    return context;
+	const context = useContext(BottomSheetContext);
+	if (!context) {
+		throw new Error("useBottomSheet must be used within a BottomSheetProvider");
+	}
+	return context;
 };
