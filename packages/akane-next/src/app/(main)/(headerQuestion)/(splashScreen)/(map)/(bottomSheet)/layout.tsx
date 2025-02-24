@@ -23,7 +23,6 @@ export default function BottomSheetLayout({
                 dismissible={true}
                 open={true}
             >
-
                 <Drawer.Portal>
                     <Drawer.Overlay style={{ position: "fixed", inset: 0, backgroundColor: "#2d2d2d" }}/>
                     <Drawer.Content
@@ -43,7 +42,7 @@ export default function BottomSheetLayout({
                             borderRadius: "2rem 2rem 0 0",
                         }}>
                         <Drawer.Title></Drawer.Title>
-                        <Drawer.Handle style={{ width: "10rem", height: "1rem", margin: "1rem auto", backgroundColor: "#e0e0e0" }}/>
+                        <Drawer.Handle style={{ width: "10rem", height: ".5rem", margin: "1rem auto", backgroundColor: "#e0e0e0" }}/>
                         <Box padding={4} overflowY="auto" h="100%">
                             {children}
                         </Box>

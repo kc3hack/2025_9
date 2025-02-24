@@ -30,7 +30,7 @@ const locations: Story[] = [
 		image_url:
 			"https://media.connpass.com/thumbs/07/16/07164855ab415348821619e38115bd19.png",
 		area: "KRP4号館",
-		type: "short",
+		type: "normal",
 		status: "published",
 		latitude: 34.99505914444529,
 		longitude: 135.73863477691611,

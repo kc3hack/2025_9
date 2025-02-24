@@ -21,12 +21,14 @@ export default function HeaderQuestionLayout({
             {isDisplay && (
                 <HStack
                     pos="fixed"
-                    justifyContent="space-between"
+                    justifyContent="flex-start"
+                    alignItems="center"
                     top={0}
                     left={0}
                     right={0}
                     m={4}
                     p={4}
+                    gap={4}
                     zIndex={1000}
                     boxShadow="0px 2px 4px rgba(0, 0, 0, 0.1)"
                     borderRadius="lg"

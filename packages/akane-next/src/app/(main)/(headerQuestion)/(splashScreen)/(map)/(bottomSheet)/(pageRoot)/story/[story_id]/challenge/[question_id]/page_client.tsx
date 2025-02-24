@@ -2,6 +2,7 @@
 
 import { useBottomSheet } from "@/hooks/BottomSheetHook";
 import { useHeaderQuestion } from "@/hooks/HeaderQuestionHook";
+import { useSplashScreen } from "@/hooks/SplashScreenHook";
 import { Button, Flex, HStack, Icon, Input, Text, VStack } from "@chakra-ui/react";
 import { Hint, Question, QuestionHint } from "@prisma/client";
 import Link from "next/link";
@@ -30,6 +31,11 @@ export default function QuestionChallengeClientPage({
         isCorrect,
         setIsCorrect,
     } = useHeaderQuestion();
+    const {
+        setText,
+        setIsShown,
+        setAnimationTime,
+    } = useSplashScreen();
     useEffect(() => {
         setSnap(snapPoints[0]);
         setIsDisplay(true);
@@ -37,6 +43,13 @@ export default function QuestionChallengeClientPage({
         setContent(question.content);
         setStoryId(question.story_id);
         setNextQuestionId(nextQuestionId ?? 0n);
+
+        if (question.priority === 1) {
+            setText("スタート！\n問題に答えてストーリーを進めよう！");
+            setIsShown(true);
+            setAnimationTime(1);
+        }
+        
         return () => {
             setIsDisplay(false);
             setIsCheckAnswerShow(false);

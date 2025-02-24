@@ -17,7 +17,7 @@ export default function MapLayout({
         isFirstFlyLocation,
         setIsFirstFlyLocation,
     } = useLocation(); // useLocationフックを使用して位置情報を取得
-    const [mapCenter, setMapCenter] = useState<[number, number]>(position ? [position.coords.longitude, position.coords.latitude] : [135.739078, 34.995022]);
+    const [, setMapCenter] = useState<[number, number]>(position ? [position.coords.longitude, position.coords.latitude] : [135.739078, 34.995022]);
     const {
         map,
         mapContainerRef,
@@ -87,15 +87,6 @@ export default function MapLayout({
 
     return (
         <>
-            <div style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }}>
-                {mapCenter[0].toFixed(6)}, {mapCenter[1].toFixed(6)}
-                {position && (
-                    <>
-                        <br />
-                        {position.coords.longitude.toFixed(6)}, {position.coords.latitude.toFixed(6)}
-                    </>
-                )}
-            </div>
             <div ref={mapContainerRef} style={{ width: '100%', height: '100dvh' }} />
             {children}
         </>
