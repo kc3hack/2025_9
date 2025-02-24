@@ -43,7 +43,10 @@ function StoryCreateTop({
 
           {/* 画像アップロード */}
           <Field.Root mb={4}>
-              <Field.Label>画像 </Field.Label>
+              <Field.Label>
+                 <Field.RequiredIndicator />
+                画像
+               </Field.Label>
               <FileUploadRoot>
                   <FileUploadTrigger asChild>
                       <Button variant="outline" w="full" color="black" fontWeight="bold">
