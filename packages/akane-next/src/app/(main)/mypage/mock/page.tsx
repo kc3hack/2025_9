@@ -4,30 +4,44 @@ import { getDistanceByTwoPoints } from "@/helper/location";
 import { useBottomSheet } from "@/hooks/BottomSheetHook";
 import { useLocation } from "@/hooks/LocationHook";
 import { useMap } from "@/hooks/MapHook";
+import { RatingGroup } from "@chakra-ui/react";
 import {
 	Button,
-	ButtonGroup,
 	DataList,
 	Flex,
 	HStack,
 	Icon,
 	Image,
 	Link,
-	RatingGroup,
 	Text,
 	VStack,
 } from "@chakra-ui/react";
-import type { Story } from "@prisma/client";
-import * as turf from "@turf/turf";
+
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import { IoMdFlag, IoMdPin } from "react-icons/io";
+import * as turf from "@turf/turf";
 
-export default function StoryDetailClientPage({
-	story,
-}: {
-	story: Story;
-}) {
+export default function StoryDetailClientPage() {
+	const story = {
+		id: BigInt("101255084679102467"),
+		user_account_id: BigInt("101255084679102467"),
+		title: "安土城の謎を解き明かせ",
+		content: "安土城に隠された謎を君の手で解き明かせ！",
+		image_url: "/castle.png",
+		type: "long",
+		status: "public",
+		difficulty: 4,
+		estimated_time: "1~2時間",
+		area: "安土城周辺",
+		radius: 5,
+		latitude: 135,
+		longitude: 35,
+		pin_class: null,
+		created_at: new Date(),
+		updated_at: new Date(),
+	};
+
 	const { map, isMapLoaded } = useMap();
 	const { position } = useLocation();
 	const { setSnap, snapPoints } = useBottomSheet();
@@ -39,13 +53,11 @@ export default function StoryDetailClientPage({
 			duration: 2000,
 		});
 	}
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		setSnap(snapPoints[1]);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (!map || !isMapLoaded) {
 			return;
@@ -90,15 +102,11 @@ export default function StoryDetailClientPage({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [map, isMapLoaded]);
 
-	if (!position) {
-		return <div>位置情報を取得中です...</div>;
-	}
-
 	const storyWithDistance = {
 		...story,
 		distance: getDistanceByTwoPoints(
-			position.coords.latitude,
-			position.coords.longitude,
+			position?.coords.latitude ?? 135,
+			position?.coords.longitude ?? 35,
 			story.latitude,
 			story.longitude,
 		),
@@ -106,14 +114,21 @@ export default function StoryDetailClientPage({
 
 	return (
 		<div>
-			<VStack alignItems="flex-start" w="100%" p={4} gap={4}>
-				{storyWithDistance.image_url && (
-					<Image
-						width="640px"
-						src={storyWithDistance.image_url ?? ""}
-						alt={storyWithDistance.title}
-					/>
-				)}
+			<VStack
+				alignItems="flex-start"
+				w="100%"
+				borderRadius="lg"
+				borderColor="gray.200"
+				borderWidth={1}
+				p={6}
+				bg="white"
+				gap={4}
+			>
+				<Image
+					width="640px"
+					src={storyWithDistance.image_url ?? ""}
+					alt={storyWithDistance.title}
+				/>
 				<HStack justifyContent="space-between" w="100%">
 					<HStack gap={2} alignItems="flex-start">
 						<Icon
@@ -127,31 +142,22 @@ export default function StoryDetailClientPage({
 						>
 							<IoMdPin />
 						</Icon>
-						<Text
-							textStyle="2xl"
-							style={{ textWrap: "balance" }}
-							fontWeight={"bold"}
-						>
-							{storyWithDistance.title}
-						</Text>
+						<Text textStyle="2xl">{storyWithDistance.title}</Text>
 					</HStack>
-					<Text>{Math.floor(storyWithDistance.distance)}m</Text>
 				</HStack>
+				<Text marginLeft="7">243m</Text>
 				<DataList.Root w="100%" orientation="horizontal">
 					<DataList.Item>
 						<DataList.ItemLabel>難易度</DataList.ItemLabel>
 						<DataList.ItemValue>
 							<RatingGroup.Root
-								readOnly
 								count={5}
-								defaultValue={storyWithDistance.difficulty}
-								size="sm"
-								colorPalette={"yellow"}
+								value={storyWithDistance.difficulty}
+								colorPalette="yellow"
 							>
 								<RatingGroup.HiddenInput />
 								<RatingGroup.Control>
 									{Array.from({ length: 5 }).map((_, index) => (
-										// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 										<RatingGroup.Item key={index} index={index + 1}>
 											<RatingGroup.ItemIndicator />
 										</RatingGroup.Item>
@@ -174,37 +180,38 @@ export default function StoryDetailClientPage({
 						<DataList.ItemLabel>あらすじ(概要)</DataList.ItemLabel>
 						<DataList.ItemValue>
 							<VStack alignItems="flex-start">
-								{storyWithDistance.content.split("\n").map((line) => (
-									<Text key={line}>{line}</Text>
+								{storyWithDistance.content.split("\n").map((line, i) => (
+									<Text key={i}>{line}</Text>
 								))}
 							</VStack>
 						</DataList.ItemValue>
 					</DataList.Item>
 				</DataList.Root>
-				<Flex w="100%" justifyContent="center" alignItems="center">
-					<ButtonGroup size="sm">
-						<Link href={`/story/${storyWithDistance.id}/challenge/0`}>
-							<Button colorPalette="blue" p={1} size={"sm"}>
-								<IoMdFlag />
-								<Text fontWeight={"bold"} textStyle={"sm"}>
-									この謎解きに挑戦する
-								</Text>
-							</Button>
-						</Link>
-						<Link href="/">
-							<Button
-								colorPalette={"red"}
-								variant={"outline"}
-								borderColor={"red.500"}
-								p={1}
-								size={"sm"}
-							>
-								<Text fontWeight={"bold"} textStyle={"sm"}>
-									←トップページに戻る
-								</Text>
-							</Button>
-						</Link>
-					</ButtonGroup>
+				<Flex w="100%" justifyContent="center" alignItems="center" gap={2}>
+					<Link href={`/story/${storyWithDistance.id}/challenge/0`}>
+						<Button
+							fontWeight={"bolder"}
+							colorPalette="blue"
+							size="sm"
+							borderRadius="lg"
+							p={2}
+						>
+							<IoMdFlag />
+							この謎解きに挑戦する
+						</Button>
+					</Link>
+					<Link href="/">
+						<Button
+							fontWeight={"bolder"}
+							borderColor="pink"
+							color="pink"
+							size="sm"
+							borderRadius="lg"
+							p={2}
+						>
+							←トップページに戻る
+						</Button>
+					</Link>
 				</Flex>
 			</VStack>
 		</div>
